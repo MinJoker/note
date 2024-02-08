@@ -66,7 +66,7 @@ extra_javascript:
 extra:
   analytics:
     provider: google
-    property: G-MXEBW4GPMY
+    property: G-TKGDGSQJ7M
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/MinJoker
