@@ -1,10 +1,10 @@
 # project information
 site_name: MinJoker's Notebook
-site_url: https://minjoker.github.io
+site_url: https://note.minjoker.top
 site_author: MinJoker
 # repository
-repo_name: MinJoker.github.io
-repo_url: https://github.com/MinJoker/MinJoker.github.io
+repo_name: MinJoker/note
+repo_url: https://github.com/MinJoker/note
 # copyright
 copyright: Copyright <span style="font-family:Arial;">&copy;</span> 2023-2024 <a href="https://github.com/MinJoker" target="_blank">MinJoker</a>
 
