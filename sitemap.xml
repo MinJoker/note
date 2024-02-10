@@ -76,6 +76,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://note.minjoker.top/cs/algorithm/princeton/note2/</loc>
+         <lastmod>2024-02-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://note.minjoker.top/cs/system/digital_logic/</loc>
          <lastmod>2024-02-10</lastmod>
          <changefreq>daily</changefreq>
