@@ -55,8 +55,8 @@ extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css  # from katex.org
 
 extra_javascript:
-  - javascripts/toc.js
-  - javascripts/katex.js 
+  - javascripts/extra.js
+  - javascripts/katex.js
   # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  # from mkdocs material
   # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js  # from mkdocs material
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js  # from katex.org
@@ -130,6 +130,8 @@ plugins:
   # https://github.com/TonyCrane/mkdocs-heti-plugin
   - heti:
       disable_serve: false
+  # https://github.com/JakubAndrysek/mkdocs-open-in-new-tab
+  # - open-in-new-tab  # confict with toc.js
       
 validation:
   absolute_links: ignore
