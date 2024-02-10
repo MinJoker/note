@@ -155,6 +155,7 @@ nav:
       - Princeton:
         - cs/algorithm/princeton/index.md
         - cs/algorithm/princeton/note1.md
+        - cs/algorithm/princeton/note2.md
     - 计算机系统:
       - 数字逻辑设计:
         - cs/system/digital_logic/index.md
