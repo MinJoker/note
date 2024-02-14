@@ -1,14 +1,7 @@
 # Algorithms I
 
-<style>
-    .md-sidebar--secondary .md-nav > .md-nav__list > li > a + .md-nav {
-      display: none;
-    }
-    .md-sidebar--secondary .md-nav > .md-nav__list > li > a.is-active + .md-nav {
-      display: block;
-    }
-</style>
-    
+<link rel="stylesheet" href="/stylesheets/fold_toc.css">
+
 ## 并查集
 
 - 并查集是一种数据结构，支持如下操作：

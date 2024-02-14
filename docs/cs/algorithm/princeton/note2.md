@@ -1,13 +1,6 @@
 # Algorithms II
 
-<style>
-    .md-sidebar--secondary .md-nav > .md-nav__list > li > a + .md-nav {
-      display: none;
-    }
-    .md-sidebar--secondary .md-nav > .md-nav__list > li > a.is-active + .md-nav {
-      display: block;
-    }
-</style>
+<link rel="stylesheet" href="/stylesheets/fold_toc.css">
 
 ## 无向图
 

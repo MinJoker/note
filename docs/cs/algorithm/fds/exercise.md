@@ -1,12 +1,6 @@
 # 题目集
 
-<style>
-    .md-typeset .admonition,
-    .md-typeset details {
-      border-width: 0 !important;
-      border-left-width: 4px !important;
-    }
-</style>
+<link rel="stylesheet" href="/stylesheets/classic_admonitions.css">
 
 这篇笔记收集一些值得留意的题目，用于 FDS 应试，题目来源：
 
