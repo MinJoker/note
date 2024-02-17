@@ -57,7 +57,6 @@
         }
 
         public int find(int p) {
-            validate(p);
             while (p != parent[p]) {
                 parent[p] = parent[parent[p]];    // path compression by halving
                 p = parent[p];
@@ -90,14 +89,6 @@
                 rank[rootP]++;
             }
             count--;
-        }
-
-        // validate that p is a valid index
-        private void validate(int p) {
-            int n = parent.length;
-            if (p < 0 || p >= n) {
-                throw new IllegalArgumentException("index " + p + " is not between 0 and " + (n-1));
-            }
         }
     }
     ```
