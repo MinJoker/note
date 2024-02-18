@@ -417,3 +417,249 @@
         }
     }
     ```
+
+## 最小生成树
+
+- 图的生成树是一个子图，满足：
+    - 是一棵树，即连通且无环
+    - 是生成的，即包含原图所有节点
+- [最小生成树](https://en.wikipedia.org/wiki/Minimum_spanning_tree)问题：给定一张正边权连通无向图，求解图的生成树，使得树的总边权最小
+
+### 贪心
+
+- 假设：图是连通的，且所有边权是相异的
+    - 假设下，给定一张正边权无向图，最小生成树存在且唯一
+- 割（cut）是图的节点的一种划分，它将所有节点分成两个非空集合
+- 交叉边（crossing edge）是连接割分得到的两个集合的边，它的两端节点分别属于两个集合
+- 割定理：对于任意的割，边权最小的交叉边一定属于最小生成树
+    - 证明：反证法；假设对于某个割，最小交叉边不属于最小生成树，则一定存在某个交叉边属于最小生成树；注意到最小交叉边可以替代这个交叉边形成更小的生成树，导出矛盾
+- 最小生成树的贪心算法：
+    - 初始时将所有边标记为未访问
+    - 找一个割，使得其交叉边都是未访问的；将其最小交叉边标记为已访问（属于最小生成树）
+    - 不断重复，直到找到 V-1 条边
+    - 贪心算法的正确性基于割定理
+- 贪心算法的实现：
+    - Kruskal 算法
+    - Prim 算法
+    - Boruvka 算法
+- 移除假设：
+    - 如果图不是连通的，则计算每个连通分量的最小生成树，得到原图的最小生成森林
+    - 如果边权不是相异的，则贪心算法仍然正确，但每次只能找到一种可能的最小生成树（相异假设下能找到唯一的最小生成树）
+
+### Kruskal&thinsp;算法
+
+- 最小生成树的 Kruskal 算法：
+    - 按边权从小到大向森林 T 中添加边，直到加满 V-1 条边为止（森林 T 成为 MST）
+    - 添加边时，总是选择加入 T 后不会形成环的最小权边
+- 算法的正确性证明：
+    - Kruskal 算法是 MST 贪心算法的特殊情形
+    - 假设算法某次添加的边是 e = (v, w)，取 cut 使得所有与 v 在 T 中连通的节点为一个集合，此时 e 恰好是最小交叉边
+- 算法的具体实现：
+    - 用优先队列维护边，每次删除最小权边
+    - 用并查集维护 T 的连通分量，用 find 操作检查是否成环，添加边时用 union 操作更新并查集
+- 算法的复杂度分析：
+    - Kruskal 算法在最坏情况下求解最小生成树所需时间为 $\Omicron(E\log E)$
+    - 每次删除最小权边操作为 $\Omicron(\log E)$，最坏情况下需要删除所有边才能得到结果，即删除次数为 $E$；可以通过堆排序在最坏情况下的时间复杂度来理解
+    - 每次 find 操作为 $\Omicron(\lg ^ * V)$，最坏情况下需要尝试所有边才能得到结果，即 find 操作次数为 $E$；如果边已经是有序的，则算法所需时间降为 $\Omicron(E\lg ^ * V)$
+
+### Prim&thinsp;算法
+
+- 最小生成树的 Prim 算法：
+    - 从某个节点开始，不断向树 T 中添加边，直到加满 V-1 条边为止（树 T 成为 MST）
+    - 添加边时，总是选择有且仅有一端节点属于 T 的最小权边
+- 算法的正确性证明：
+    - Prim 算法是 MST 贪心算法的特殊情形
+    - 假设算法某次添加的边是 e，取 cut 使得所有 T 中的节点为一个集合，此时 e 恰好是最小交叉边
+- 算法的 lazy 实现：
+    - 用优先队列维护至少有一端节点属于 T 的边，每次删除最小权边
+    - 如果删除的最小权边两端节点都属于 T，则忽略它（这条边已经过时了），继续下一次删除
+    - 如果删除的最小权边一端节点不属于 T，则用该节点更新优先队列，将与之相连且另一端不在 T 中的边压入优先队列
+    - 最坏情况下（lazy 实现使得优先队列中可能存在大量过时的边）时间复杂度为 $\Omicron(E\log E)$ 且空间复杂度为 $\Omicron(E)$
+- 算法的 eager 实现：
+    - 用优先队列维护节点，其中节点与 T 至少通过一条边直接相连，权值为连接该节点与 T 的最小边权，每次删除具有最小边权的节点
+    - 每次删除节点 v 后，用该节点更新优先队列，扫描所有与 v 相连的边 e = (v, w)
+        - 如果 w 属于 T，则忽略它（这条边已经过时了）
+        - 否则，如果 e 成为连接 w 与 T 的最小权边，则更新 w 的权值，并将 w 压入优先队列（若 w 不在优先队列中）或更新 w 在优先队列中的位置（若 w 在优先队列中）
+    - 最坏情况下（eager 实现使得优先队列中至多存储 V 个节点）时间复杂度为 $\Omicron(E\log V)$ 且空间复杂度为 $\Omicron(V)$
+    - 更进一步地，d 叉堆可将时间复杂度优化到 $\Omicron(E\log _{E/V} V)$，斐波那契堆可将时间复杂度优化到 $\Omicron(E+V\log V)$
+- Kruskal 算法与 Prim 算法比较
+    - Prim 算法具有更好的时间复杂度和空间复杂度
+    - Kruskal 算法容易实现，代码紧凑，不适用于稠密图
+- 最小生成树问题的 $\Omicron(E)$ 线性算法至今没有被找到，而且是否存在线性算法也尚未被证明
+
+### 应用
+
+- [欧几里得最小生成树](https://en.wikipedia.org/wiki/Euclidean_minimum_spanning_tree)
+    - 给定 N 个节点，每个节点之间都隐式地存在一条边，边权为两点间的欧几里得距离；相当于是完全图的最小生成树问题
+    - 暴力算法：用 $\sim N^ 2/2$ 时间计算每个节点之间的欧几里得距离，然后执行 Prim 算法
+    - 较优算法：利用几何知识（如 [Delaunay 三角剖分](https://en.wikipedia.org/wiki/Delaunay_triangulation)）可以将时间减少到 $\sim cN\log N$
+- [聚类分析（cluster analysis）](https://en.wikipedia.org/wiki/Cluster_analysis)
+    - 给定常数整数 k，将集合划分成 k 个部分，使得每个部分尽可能聚集，聚集程度通过距离函数来定义
+    - 单链聚类（single-link clustering）：距离函数定义为分别属于两个聚类的两点之间的距离
+    - 单链聚类的经典算法：初始时把集合划分为 V 个聚类，不断将距离函数值最小的两个聚类合并，直到恰好有 k 个聚类；注意到这个算法实际上就是 Kruskal 算法（当恰好有 k 个连通分量时停止）
+    - 单链聚类的另一算法：执行 Prim 算法，然后删除边权最大的前 k-1 条边
+
+### 代码
+
+??? quote "Kruskal: Java Implementation"
+
+    ```java linenums="1" title="Kruskal's Algorithm for Minimum-Spanning-Tree"
+    package edu.princeton.cs.algs4;
+
+    public class KruskalMST {
+        private double weight;                        // weight of MST
+        private Queue<Edge> mst = new Queue<Edge>();  // edges in MST
+
+        // compute a minimum spanning tree (or forest) of an edge-weighted graph.
+        public KruskalMST(EdgeWeightedGraph G) {
+
+            // build priority queue
+            MinPQ<Edge> pq = new MinPQ<Edge>();
+            for (Edge e : G.edges())
+                pq.insert(e);
+
+            // run greedy algorithm
+            UF uf = new UF(G.V());
+            while (!pq.isEmpty() && mst.size() < G.V() - 1) {
+                Edge e = delMin();
+                int v = e.either();
+                int w = e.other(v);
+
+                // v-w does not create a cycle
+                if (uf.find(v) != uf.find(w)) {
+                    uf.union(v, w);     // merge v and w components
+                    mst.enqueue(e);     // add edge e to mst
+                    weight += e.weight();
+                }
+            }
+        }
+
+        public Iterable<Edge> edges() {
+            return mst;
+        }
+
+        public double weight() {
+            return weight;
+        }
+    }
+    ```
+
+??? quote "Lazy Prim: Java Implementation"
+
+    ```java linenums="1" title="Lazy Prim's Algorithm for Minimum-Spanning-Tree"
+    package edu.princeton.cs.algs4;
+
+    public class LazyPrimMST {
+        private double weight;       // total weight of MST
+        private Queue<Edge> mst;     // edges in the MST
+        private boolean[] marked;    // marked[v] = true iff v on tree
+        private MinPQ<Edge> pq;      // edges with one endpoint in tree
+
+        // compute a minimum spanning tree (or forest) of an edge-weighted graph.
+        public LazyPrimMST(EdgeWeightedGraph G) {
+            mst = new Queue<Edge>();
+            pq = new MinPQ<Edge>();
+            marked = new boolean[G.V()];
+            for (int v = 0; v < G.V(); v++)     // run Prim from all vertices to
+                if (!marked[v]) prim(G, v);     // get a minimum spanning forest
+        }
+
+        // run Prim's algorithm
+        private void prim(EdgeWeightedGraph G, int s) {
+            scan(G, s);
+            while (!pq.isEmpty()) {                     // better to stop when mst has V-1 edges
+                Edge e = pq.delMin();
+                int v = e.either(), w = e.other(v);
+                if (marked[v] && marked[w]) continue;   // lazy, both v and w already scanned
+                mst.enqueue(e);                         // add e to MST
+                weight += e.weight();
+                if (!marked[v]) scan(G, v);
+                if (!marked[w]) scan(G, w);
+            }
+        }
+
+        // add all edges e incident to v onto pq if the other endpoint has not yet been scanned
+        private void scan(EdgeWeightedGraph G, int v) {
+            marked[v] = true;
+            for (Edge e : G.adj(v))
+                if (!marked[e.other(v)]) pq.insert(e);
+        }
+
+        public Iterable<Edge> edges() {
+            return mst;
+        }
+
+        public double weight() {
+            return weight;
+        }
+    }
+    ```
+
+??? quote "Eager Prim: Java Implementation"
+
+    ```java linenums="1" title="Eager Prim's Algorithm for Minimum-Spanning-Tree"
+    package edu.princeton.cs.algs4;
+
+    public class PrimMST {
+        private Edge[] edgeTo;        // edgeTo[v] = shortest edge from tree vertex to non-tree vertex
+        private double[] distTo;      // distTo[v] = weight of shortest such edge
+        private boolean[] marked;     // marked[v] = true if v on tree, false otherwise
+        private IndexMinPQ<Double> pq;
+
+        // compute a minimum spanning tree (or forest) of an edge-weighted graph.
+        public PrimMST(EdgeWeightedGraph G) {
+            edgeTo = new Edge[G.V()];
+            distTo = new double[G.V()];
+            marked = new boolean[G.V()];
+            pq = new IndexMinPQ<Double>(G.V());
+            for (int v = 0; v < G.V(); v++)
+                distTo[v] = Double.POSITIVE_INFINITY;
+
+            for (int v = 0; v < G.V(); v++)      // run from each vertex to find
+                if (!marked[v]) prim(G, v);      // minimum spanning forest
+        }
+
+        // run Prim's algorithm in graph G, starting from vertex s
+        private void prim(EdgeWeightedGraph G, int s) {
+            distTo[s] = 0.0;
+            pq.insert(s, distTo[s]);
+            while (!pq.isEmpty()) {
+                int v = pq.delMin();
+                scan(G, v);
+            }
+        }
+
+        // scan vertex v
+        private void scan(EdgeWeightedGraph G, int v) {
+            marked[v] = true;
+            for (Edge e : G.adj(v)) {
+                int w = e.other(v);
+                if (marked[w]) continue;         // v-w is obsolete edge
+                if (e.weight() < distTo[w]) {
+                    distTo[w] = e.weight();
+                    edgeTo[w] = e;
+                    if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+                    else                pq.insert(w, distTo[w]);
+                }
+            }
+        }
+
+        public Iterable<Edge> edges() {
+            Queue<Edge> mst = new Queue<Edge>();
+            for (int v = 0; v < edgeTo.length; v++) {
+                Edge e = edgeTo[v];
+                if (e != null) {
+                    mst.enqueue(e);
+                }
+            }
+            return mst;
+        }
+
+        public double weight() {
+            double weight = 0.0;
+            for (Edge e : edges())
+                weight += e.weight();
+            return weight;
+        }
+    }
+    ```
