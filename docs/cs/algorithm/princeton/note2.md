@@ -253,17 +253,14 @@
 - 强连通分量是极大的强连通子图，强连通子图是一些相互可达的节点组成的子图
 - 将一张给定的图划分成若干个强连通分量，可以使用单次 DFS 实现，详情参考 [wikipedia](https://en.wikipedia.org/wiki/Strongly_connected_component#DFS-based_linear-time_algorithms)，这里介绍一种非常简单的算法，使用两次 DFS 实现
 - Kosaraju-Sharir 算法的核心思路：
-    - 第一次 DFS：对原图的反向图进行 DFS，得到后序遍历逆序列（即拓扑序列）
-    - 第二次 DFS：对原图进行 DFS，按照第一次 DFS 得到的反向图拓扑序列的顺序访问未被访问的节点
+    - 第一次 DFS：对原图的反向图进行 DFS，得到后序遍历逆序列
+    - 第二次 DFS：对原图进行 DFS，按照第一次 DFS 得到的后序遍历逆序列的顺序访问未被访问的节点
 - Kosaraju-Sharir 算法的具体解释：
     - 概念：反向图是由原图将所有有向边反向得到的，反向图与原图的强连通分量是一样的
-    - 第一次 DFS 相当于得到了原图的逆拓扑序列
+    - 概念：核 DAG（kernel DAG）指将原图的每个强连通分量分别收缩成一个节点，从而忽略强连通分量内部的有向边而只关心强连通分量之间的有向边
+        - 核 DAG 提供了一种特殊视角，将任何有向图理解成 DAG，从而可以定义拓扑序列
+    - 第一次 DFS 相当于得到了反向图核 DAG 的拓扑序列，也即原图核 DAG 的逆拓扑序列
     - 第二次 DFS 相当于将逆拓扑序列分割，得到了原图的强连通分量
-    - 概念：核 DAG（kernel DAG）
-        - 指将原图的每个强连通分量分别收缩成一个节点，从而忽略强连通分量内部的有向边而只关心强连通分量之间的有向边
-        - DAG 的拓扑序列不一定是唯一的，但核 DAG 的拓扑序列是唯一的（将强连通分量内的所有节点同视作一个节点）
-        - 核 DAG 和原图本质上是完全一样的，只是一种不同的理解视角而已
-    - 可以尝试用核 DAG 帮助理解 Kosaraju-Sharir 算法
 - Kosaraju-Sharir 算法所需时间为 $\Omicron(E+V)$
     - 证明：关键在于两次 DFS 和求解反向图
 
@@ -277,33 +274,6 @@
     public class Topological {
         private Iterable<Integer> order;  // topological order
         private int[] rank;               // rank[v] = rank of vertex v in order
-
-        /***************************************************************************
-         * actually {@code DepthFirstOrder} is a class in edu.princeton.cs.algs4
-         * here modifies and includes it as follows, just for learning
-         ***************************************************************************/
-        private class DepthFirstOrder {
-            private boolean[] marked;
-            private Stack<Integer> reversePost;
-
-            private DepthFirstOrder(Digraph G) {
-                reversePost = new Stack<Integer>();
-                marked = new boolean[G.V()];
-                for (int v = 0; v < G.V(); v++)
-                    if (!marked[v]) dfs(G, v);
-            }
-
-            private void dfs(Digraph G, int v) {
-                marked[v] = true;
-                for (int w : G.adj(v))
-                    if (!marked[w]) dfs(G, w);
-                reversePost.push(v);
-            }
-
-            private Iterable<Integer> reversePost() {
-                return reversePost;
-            }
-        }
 
         // determines whether the digraph {@code G} has a topological order and,
         // if so, finds such a topological order.
@@ -336,18 +306,51 @@
             if (hasOrder()) return rank[v];
             else            return -1;
         }
-    }
-    ```
 
-??? quote "Strong Components: Java Implementation"
+        /***************************************************************************
+         * actually {@code DirectedCycle} is a class in edu.princeton.cs.algs4
+         * here modifies and includes it as follows, just for learning
+         ***************************************************************************/
+        private class DirectedCycle {
+            private boolean[] marked;
+            private int[] edgeTo;
+            private boolean[] onStack;
+            private Stack<Integer> cycle;
 
-    ```java linenums="1" title="Strong Components with Twice Depth-First Search"
-    package edu.princeton.cs.algs4;
+            public DirectedCycle(Digraph G) {
+                marked  = new boolean[G.V()];
+                onStack = new boolean[G.V()];
+                edgeTo  = new int[G.V()];
+                for (int v = 0; v < G.V(); v++)
+                    if (!marked[v] && cycle == null) dfs(G, v);
+            }
 
-    public class KosarajuSharirSCC {
-        private boolean[] marked;     // marked[v] = has vertex v been visited?
-        private int[] id;             // id[v] = id of strong component containing v
-        private int count;            // number of strongly-connected components
+            private void dfs(Digraph G, int v) {
+                onStack[v] = true;
+                marked[v] = true;
+                for (int w : G.adj(v)) {
+                    if (cycle != null) return;
+                    else if (!marked[w]) {
+                        edgeTo[w] = v;
+                        dfs(G, w);
+                    }
+                    // trace back directed cycle
+                    else if (onStack[w]) {
+                        cycle = new Stack<Integer>();
+                        for (int x = v; x != w; x = edgeTo[x]) {
+                            cycle.push(x);
+                        }
+                        cycle.push(w);
+                        cycle.push(v);
+                    }
+                }
+                onStack[v] = false;
+            }
+
+            public boolean hasCycle() {
+                return cycle != null;
+            }
+        }
 
         /***************************************************************************
          * actually {@code DepthFirstOrder} is a class in edu.princeton.cs.algs4
@@ -357,7 +360,7 @@
             private boolean[] marked;
             private Stack<Integer> reversePost;
 
-            private DepthFirstOrder(Digraph G) {
+            public DepthFirstOrder(Digraph G) {
                 reversePost = new Stack<Integer>();
                 marked = new boolean[G.V()];
                 for (int v = 0; v < G.V(); v++)
@@ -371,10 +374,22 @@
                 reversePost.push(v);
             }
 
-            private Iterable<Integer> reversePost() {
+            public Iterable<Integer> reversePost() {
                 return reversePost;
             }
         }
+    }
+    ```
+
+??? quote "Strong Components: Java Implementation"
+
+    ```java linenums="1" title="Strong Components with Twice Depth-First Search"
+    package edu.princeton.cs.algs4;
+
+    public class KosarajuSharirSCC {
+        private boolean[] marked;     // marked[v] = has vertex v been visited?
+        private int[] id;             // id[v] = id of strong component containing v
+        private int count;            // number of strongly-connected components
 
         public KosarajuSharirSCC(Digraph G) {
 
@@ -415,6 +430,33 @@
             validateVertex(w);
             return id[v] == id[w];
         }
+
+        /***************************************************************************
+         * actually {@code DepthFirstOrder} is a class in edu.princeton.cs.algs4
+         * here modifies and includes it as follows, just for learning
+         ***************************************************************************/
+        private class DepthFirstOrder {
+            private boolean[] marked;
+            private Stack<Integer> reversePost;
+
+            private DepthFirstOrder(Digraph G) {
+                reversePost = new Stack<Integer>();
+                marked = new boolean[G.V()];
+                for (int v = 0; v < G.V(); v++)
+                    if (!marked[v]) dfs(G, v);
+            }
+
+            private void dfs(Digraph G, int v) {
+                marked[v] = true;
+                for (int w : G.adj(v))
+                    if (!marked[w]) dfs(G, w);
+                reversePost.push(v);
+            }
+
+            private Iterable<Integer> reversePost() {
+                return reversePost;
+            }
+        }
     }
     ```
 
@@ -438,10 +480,7 @@
     - 找一个割，使得其交叉边都是未访问的；将其最小交叉边标记为已访问（属于最小生成树）
     - 不断重复，直到找到 V-1 条边
     - 贪心算法的正确性基于割定理
-- 贪心算法的实现：
-    - Kruskal 算法
-    - Prim 算法
-    - Boruvka 算法
+- 贪心算法的实现：Kruskal 算法、Prim 算法、Boruvka 算法
 - 移除假设：
     - 如果图不是连通的，则计算每个连通分量的最小生成树，得到原图的最小生成森林
     - 如果边权不是相异的，则贪心算法仍然正确，但每次只能找到一种可能的最小生成树（相异假设下能找到唯一的最小生成树）
