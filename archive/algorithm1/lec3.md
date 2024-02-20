@@ -554,7 +554,7 @@ Java 的解决方案是`Iterable`接口。
             System.out.println(s);
         }
         ```
-    
+
     === "等价的不优雅的写法"
 
         ```java title="equivalent client code"
@@ -598,7 +598,7 @@ Java 的解决方案是`Iterable`接口。
                 return item;
             }
         }
-    } 
+    }
     ```
 
 === "数组实现"

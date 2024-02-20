@@ -170,7 +170,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     === "西文排版的软换行"
 
         Markdown 源码：
-        
+
         ```markdown
         This is line 1.
         And this is line 2, but this sentence is ended
@@ -447,7 +447,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
         - 这是第二个子列表项
     - 这是第二个母列表项
     ```
-    
+
     1. 这里是属于母列表的一个空行
 
     2. 这里是属于子列表的一个空行
@@ -487,7 +487,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     <li>这还是一句话</li>
     <li>这仍然是一句话</li>
     </ul>
-    
+
     Markdown 源码：
 
     ```markdown
@@ -510,7 +510,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     <li>这还是一句话</li>
     <li>这仍然是一句话</li>
     </ul>
-    
+
     Markdown 源码：
 
     ```markdown
@@ -548,7 +548,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     2. 这里是一个没有落入块引用的空行
 
     解析为 HTML：
-    
+
     ```html
     <blockquote>
     <p>这是一句话</p>
@@ -571,7 +571,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
 
     ```c
     - 这是一句话
-      
+
       这也是一句话// (1)!
 
         这还是一句话// (2)!
@@ -586,7 +586,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     3. 这一行前面有六个空格，相对“这是一句话”缩进了四个空格，被解析为缩进式代码块
 
     解析为 HTML：
-    
+
     ```html
     <ul>
     <li>
@@ -618,7 +618,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     === "不省略空格"
 
         Markdown 源码：
-        
+
         ```c
         > - 这是一句话
         >
@@ -641,7 +641,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     === "省略空格"
 
         Markdown 源码：
-        
+
         ```c
         >- 这是一句话// (1)!
         >
@@ -757,7 +757,7 @@ Markdown 中最基本的文本片段是段落（paragraphs），很多人会混�
     <p><code>im``good```boy</code></p>
 
     <p><code>im``good```boy</code></p>
-    
+
     <p><code>`</code></p>
     <!-- blankline is necessary here for parsing??? -->
 

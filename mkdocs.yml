@@ -17,7 +17,7 @@ theme:
     logo: octicons/infinity-16
   favicon: assets/images/link/minjoker.png
   font: false  # prevent typeface from loading from Google Fonts
-  features: 
+  features:
     # - navigation.instant   # seems to cause formula rendering difficulty ( need one more refresh )
     # - navigation.tracking  # not good and has conflict with toc.js
     - navigation.tabs
@@ -132,7 +132,7 @@ plugins:
       disable_serve: false
   # https://github.com/JakubAndrysek/mkdocs-open-in-new-tab
   # - open-in-new-tab  # confict with toc.js
-      
+
 validation:
   absolute_links: ignore
   # unrecognized_links: ignore

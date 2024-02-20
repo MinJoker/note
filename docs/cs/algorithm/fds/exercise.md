@@ -152,7 +152,7 @@
 
         - $n=1+\sum_{i=1}^ {d}(i\times n_i)$（$n$ 为树中的节点总数，等于总边数加 1）
         - $n=\sum_{i=0}^ {d}n_i$
-        
+
         联立上述两式即可得证。
 
 5. (HW6) For a binary tree, if its pre-order travel sequence is {4,2,1,3,6,5,7}, and its in-order travel sequence is {1,2,3,4,5,6,7}, then which of the following statement is FALSE?
@@ -288,7 +288,7 @@
     !!! success ""
 
         要确保 9 个节点的图在任何情况下都是连通的，至少需要 C(8,2) + 1 = 29 条边，所以题目中的 35 条边一定会把 9 个节点的图连通。
-        
+
         同理，要确保 10 个节点的图在任何情况下都是连通的，至少需要 C(9,2) + 1 = 37 条边，所以题目中的 35 条边可能使 10 个节点的图是非连通的。
 
 3. (HW8) A graph with 90 vertices and 20 edges must have at least __ connected component(s).
@@ -366,7 +366,7 @@
     !!! success ""
 
         根据题目定义的一趟（run）的含义，快排中每一趟都会将 pivot 放置在其最终位置。因此两趟之后应该已经有 1 + 2 = 3 个 pivot 处于其最终位置（注意，这里第二趟的时候左右两段序列视作并行，因此第二趟能确定 2 个 pivot 最终位置）或者 1 + 1 = 2 个 pivot 处于其最终位置（这种情况要求第一趟的 pivot 是第一个或最后一个元素）。
-        
+
         pivot 的特点是其左侧元素都比它小，其右侧元素都比它大，四个选项的 pivot 如下：
 
         - A. 5, 2, 16, 12, ***28***, 60, 32, ***72***

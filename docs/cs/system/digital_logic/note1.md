@@ -147,7 +147,7 @@ $$
 三态门（3-State Buffer）
 
 ??? example "三态门解决多路输出互联问题（multiplexed output line）的一个例子"
-    
+
     ![](/assets/images/cs/digital_logic/2.jpg){width="60%"}
 
 ---

@@ -95,7 +95,7 @@ public class QuickFindUF
             }
         }
     }
-}    
+}
 ```
 
 ### 快速合并

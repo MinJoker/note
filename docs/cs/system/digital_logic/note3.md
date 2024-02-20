@@ -102,7 +102,7 @@
 ???+ note "教材中的传统观点"
 
     *Logic and Computer Design Fundamentals* 教材中认为，主从触发器有两种实现方法：pulse-triggered 和 edge-triggered。
-    
+
     $SR$ 触发器就属于前者。但是，$SR$ 触发器存在一个很大的问题，即 1s-catching。当时钟信号为`1`时，S 或 R 短暂的置`1`均会被 Master 捕捉到，并在时钟信号为`0`时传递给从 Slave。由于时序逻辑电路总是存在反馈路径，所以同一个时钟周期内 Master 的状态可能会更新多次，虽然对于触发器整体而言仍然仅有一次状态更新（因为 Slave 仅更新一次），但是这种情况下我们无法确保 Master 传递给 Slave 的信息和我们起初写入 Master 的信息是否一致。
 
     为了更好地理解 1s-catching，让我们回忆一下时序逻辑延迟分析中提到的 setup-time（如下图）。pulse-triggered 触发器之所以需要比 edge-triggered 触发器更长的 setup-time，就是为了确保时钟信号为`1`时触发器输入端总是稳定的，从而确保不会发生 1s-catching。

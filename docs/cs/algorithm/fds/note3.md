@@ -74,7 +74,7 @@ void insertionSort(ElementType arr[], int n)
         - 将堆顶元素与堆尾元素交换（相当于删除了最大值），并进行向下调整
         - 将堆顶元素与堆尾元素交换（相当于删除了次大值），并进行向下调整
         - 如此循环 N-1 次后，得到一个从小到大的有序序列
-    
+
     ```c
     void heapSort(ElementType arr[], int n)
     {   /* arr[0] is a sential */
@@ -273,7 +273,7 @@ void insertionSort(ElementType arr[], int n)
 - 对于整数的哈希，可以取 $f(x) = x \bmod tableSize$
     - 其中 tableSize 最好取一个质数，这样对于随机输入，关键字的分布更均匀
 - 对于字符串的哈希，可以取 $f(x)=(\sum x[N-i-1] \times 32^ i) \bmod tableSize$
-    
+
     ```c
     Index hash(const char *x, int tableSize) {
         unsigned int hashVal = 0;

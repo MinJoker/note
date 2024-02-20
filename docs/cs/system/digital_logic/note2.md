@@ -40,7 +40,7 @@
 ??? example "$10-to-4$ 编码器实现十进制转 BCD 码"
 
     ![](/assets/images/cs/digital_logic/11.png){width="60%"}
-    
+
     ![](/assets/images/cs/digital_logic/12.png){width="60%"}
 
 优先编码器（Priority Encoder）可以解决上述问题。在优先编码器中，如果多个输入处在活动状态（输入为 `1`），则优先级高的输入将优先，而优先级低的输入将成为不定项（Don't Cares）。
