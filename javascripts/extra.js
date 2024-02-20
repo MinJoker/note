@@ -4,7 +4,7 @@
 (function (window, document) {
   /**
    * external link open in new tab
-   * 
+   *
    * modified from:
    * https://github.com/JakubAndrysek/mkdocs-open-in-new-tab/blob/main/open_in_new_tab/js/open_in_new_tab.js
    */
@@ -17,14 +17,14 @@
       }
     }
   }
-  
+
   if (typeof document !== "undefined") {
       external_new_tab();
   }
 
   /**
    * smooth scroll
-   * 
+   *
    * modified from:
    * https://github.com/TonyCrane/note/blob/master/docs/js/toc.js
    */
