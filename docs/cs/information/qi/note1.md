@@ -46,7 +46,7 @@
 [狄拉克记号](https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation)广泛应用于量子信息领域，其基本记法如下：
 
 - 复向量空间 $V$ 中的向量记为 $\ket{v}$，线性泛函 $f: V \rightarrow \Complex$ 记为 $\bra{f}$，线性泛函作用于向量记为 $\braket{f|v} \in \Complex$
-- 复向量内积空间 $V$ 中有内积 $(\cdot , \cdot)$ 且第一位是共轭线性的，对于向量 $\phi$ 可以定义 $(\phi , \cdot) \equiv \bra{\phi}$，其中线性泛函 $\bra{\phi}$ 是向量 $\ket{\phi}$ 的伴随向量（矩阵形式的共轭转置），从而内积记为 $(\phi , \psi) \equiv \braket{\phi | \psi}$
+- 复向量内积空间 $V$ 中有内积 $(\cdot , \cdot)$ 且第一位是共轭线性的，对于向量 $\phi$ 可以定义 $(\phi , \cdot) \equiv \bra{\phi}$，其中线性泛函 $\bra{\phi}$ 是向量 $\ket{\phi}$ 的伴随（矩阵形式的共轭转置），从而内积记为 $(\phi , \psi) \equiv \braket{\phi | \psi}$
     - 内积 $\braket{\phi | \psi}$ 表示 $\ket{\psi}$ 投影到 $\ket{\phi}$ 上，注意 $\braket{\phi | \psi} = \braket{\psi | \phi} ^ *$
 - 线性泛函 $\bra{\phi}$ 和向量 $\ket{\psi}$ 可以通过外积结合成算子 $\ket{\psi} \bra{\phi}$，定义为 $\ket{\psi} \bra{\phi} : \ket{\xi} \mapsto \ket{\psi} \braket{\phi | \xi}$
     - 外积 $P_k \equiv \ket{k} \bra{k}$ 表示 $\ket{k}$ 方向的投影算子，$P_k \ket{v} = \ket{k} \braket{k | v}$
@@ -65,4 +65,13 @@
     - [Malus 定律](https://en.wikipedia.org/wiki/Polarizer#Malus's_law_and_other_properties) $I ^ {\prime} = I \cos ^ 2 \theta$ 的统计学描述：偏振方向为 $\ket{p} = (\cos \theta , \sin \theta) ^ T$ 的 $N$ 个光子透过偏振方向为 $\ket{n} = (1, 0) ^ T$ 的偏振片，透过率约为 $N_x / N \simeq \cos ^ 2 \theta = \braket{p | n}$
 - 椭圆偏振光：$\begin{cases} E_x = E_0 \cos \theta \cos (\omega t - \delta _x) = E_0 \text{Re} (\mu e ^ {-i\omega t}) & ,\; \mu = \cos \theta e ^ {i\delta _x} \cr E_y = E_0 \sin \theta \cos (\omega t - \delta _y) = E_0 \text{Re} (\nu e ^ {-i\omega t}) & ,\; \nu = \sin \theta e ^ {i\delta _y} \end{cases}$
     - 可以用单位复向量 $\ket{p} = (\mu, \nu) ^ T$ 表示这个椭圆偏振光，由于物理上相位差 $\delta = \delta _y - \delta _x$ 才是有意义的，因此 $\ket{p}$ 可由两个实参数 $\theta , \delta$ 唯一确定
-    - 圆偏振光的相位差为 $\delta = \pm \pi / 2$，可以用单位复向量 $(\cos \theta , \pm i \sin \theta) ^ T$ 表示
+    - 圆偏振光的 $\theta = \pi / 4$ 且 $\delta = \pm \pi / 2$，可以用单位复向量 $\frac{1}{\sqrt{2}} (1 , \pm i) ^ T$ 表示
+
+---
+
+下面考虑用狄拉克记号表达光的偏振（以线偏振光为例）：
+
+- 引入正交基 $\ket{h} = \begin{pmatrix} 1 \cr 0 \end{pmatrix} , \ket{v} = \begin{pmatrix} 0 \cr 1 \end{pmatrix}$，以及相应的投影算子 $P_h = \ket{h} \bra{h} = \begin{pmatrix} 1 & 0 \cr 0 & 0 \end{pmatrix} , P_v = \ket{v} \bra{v} = \begin{pmatrix} 0 & 0 \cr 0 & 1 \end{pmatrix}$，注意到 $P_h + P_v = I _ {2\times 2}$
+- 从而线偏振光可以表示为 $\ket{p} = I _ {2\times 2} \ket{p} = \ket{h} \bra{h} \ket{p} + \ket{v} \bra{v} \ket{p} = \mu \ket{h} + \nu \ket{v}$，注意到 $|\mu| ^ 2 + |\nu| ^ 2 = 1$
+    - $\mu = \braket{h | p} , \nu = \braket{v | p}$ 称为概率幅，分别反映了量子态 $\ket{p}$ 坍缩到 $\ket{h}$ 和 $\ket{v}$ 的可能性
+    - 概率幅的模平方表示概率，例如 $\text{P} _ h = |\mu| ^ 2 = \braket{p | h} \braket{h | p} \equiv \braket{p | P _ h | p}$，其中 $\text{P}_h$ 表示概率而 $P_h$ 表示 $\ket{h}$ 对应的投影算子
