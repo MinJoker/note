@@ -73,5 +73,5 @@
 
 - 引入正交基 $\ket{h} = \begin{pmatrix} 1 \cr 0 \end{pmatrix} , \ket{v} = \begin{pmatrix} 0 \cr 1 \end{pmatrix}$，以及相应的投影算子 $P_h = \ket{h} \bra{h} = \begin{pmatrix} 1 & 0 \cr 0 & 0 \end{pmatrix} , P_v = \ket{v} \bra{v} = \begin{pmatrix} 0 & 0 \cr 0 & 1 \end{pmatrix}$，注意到 $P_h + P_v = I _ {2\times 2}$
 - 从而线偏振光可以表示为 $\ket{p} = I _ {2\times 2} \ket{p} = \ket{h} \bra{h} \ket{p} + \ket{v} \bra{v} \ket{p} = \mu \ket{h} + \nu \ket{v}$，注意到 $|\mu| ^ 2 + |\nu| ^ 2 = 1$
-    - $\mu = \braket{h | p} , \nu = \braket{v | p}$ 称为概率幅，分别反映了量子态 $\ket{p}$ 坍缩到 $\ket{h}$ 和 $\ket{v}$ 的可能性
+    - $\mu = \braket{h | p} , \nu = \braket{v | p}$ 称为[概率幅](https://en.wikipedia.org/wiki/Probability_amplitude)，分别反映了量子态 $\ket{p}$ 坍缩到 $\ket{h}$ 和 $\ket{v}$ 的可能性
     - 概率幅的模平方表示概率，例如 $\text{P} _ h = |\mu| ^ 2 = \braket{p | h} \braket{h | p} \equiv \braket{p | P _ h | p}$，其中 $\text{P}_h$ 表示概率而 $P_h$ 表示 $\ket{h}$ 对应的投影算子
