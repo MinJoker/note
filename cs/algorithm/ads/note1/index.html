@@ -376,6 +376,31 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#splay">
+<span class="md-ellipsis">
+      Splay 树
+    </span>
+</a>
+<nav aria-label="Splay 树" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_4">
+<span class="md-ellipsis">
+      展开
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_5">
+<span class="md-ellipsis">
+      摊还分析
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -751,6 +776,31 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#splay">
+<span class="md-ellipsis">
+      Splay 树
+    </span>
+</a>
+<nav aria-label="Splay 树" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_4">
+<span class="md-ellipsis">
+      展开
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_5">
+<span class="md-ellipsis">
+      摊还分析
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </div>
@@ -760,10 +810,9 @@
 <article class="md-content__inner md-typeset">
 <h1 id="_1">高级数据结构<a class="headerlink" href="#_1" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"></path></svg></span> 约<span class="heti-skip"><span class="heti-spacing"> </span>751<span class="heti-spacing"> </span></span>个字 <span class="twemoji"><svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"></path></svg></span> <span>46<span class="heti-spacing"> </span></span>行代码 <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"></path></svg></span> 预计阅读时间<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>分钟</p>
+<p><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"></path></svg></span> 约<span class="heti-skip"><span class="heti-spacing"> </span>1238<span class="heti-spacing"> </span></span>个字 <span class="twemoji"><svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"></path></svg></span> <span>46<span class="heti-spacing"> </span></span>行代码 <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"></path></svg></span> 预计阅读时间<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>分钟</p>
 </div>
 <h2 id="avl">AVL 树<a class="headerlink" href="#avl" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h2>
-<p>Take-Home Message:</p>
 <ul>
 <li><span>AVL<span class="heti-spacing"> </span></span>树是一种自平衡二叉搜索树，其中每个节点的左右子树高度差不超过<span><span class="heti-spacing"> </span>1</span></li>
 <li><span>AVL<span class="heti-spacing"> </span></span>树的高度<span><span class="heti-spacing"> </span>$h = \Omicron(\log n)$</span></li>
@@ -853,7 +902,7 @@
 </div>
 <h3 id="_3">插入与删除<a class="headerlink" href="#_3" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h3>
 <p><span>AVL<span class="heti-spacing"> </span></span>树的插入和删除操作的思路都是首先进行插入和删除，然后自底向上回溯以更新<span class="heti-skip"><span class="heti-spacing"> </span>BF<span class="heti-spacing"> </span></span>值并维护平衡性，但其具体实现相当繁琐。结论是，插入后最多只需要一次<span class="heti-skip"><span class="heti-spacing"> </span>rotate<span class="heti-spacing"> </span></span>即可实现再平衡，而删除后可能需要多次<span class="heti-skip"><span class="heti-spacing"> </span>rotate<span class="heti-spacing"> </span></span>才能实现再平衡（最坏情况需要<span class="heti-skip"><span class="heti-spacing"> </span>$\log n$<span class="heti-spacing"> </span></span>次<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"/><input id="__tabbed_2_2" name="__tabbed_2" type="radio"/><div class="tabbed-labels"><label for="__tabbed_2_1">插入操作概述</label><label for="__tabbed_2_2">删除操作概述</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"/><input id="__tabbed_2_2" name="__tabbed_2" type="radio"/><div class="tabbed-labels"><label for="__tabbed_2_1">插入操作</label><label for="__tabbed_2_2">删除操作</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ol>
@@ -881,6 +930,50 @@
 </div>
 </div>
 </div>
+<h2 id="splay">Splay 树<a class="headerlink" href="#splay" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li><span>Splay<span class="heti-spacing"> </span></span>树通过将所有访问操作与所谓“展开”操作相结合，从而实现均摊对数时间复杂度</li>
+<li><span>Splay<span class="heti-spacing"> </span></span>树使得最近访问的节点被移动到根节点附近，从而可以快速再次访问，具有较好的访问局部性</li>
+<li><span>Splay<span class="heti-spacing"> </span></span>树不具备严格的自平衡能力，最坏情况下高度可能是线性的（例如以非降序访问所有节点后就会出现这种情况）</li>
+</ul>
+<h3 id="_4">展开<a class="headerlink" href="#_4" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>展开操作分为以下三种情况，这里记待移动到根节点的节点为<span><span class="heti-spacing"> </span>X</span>，记其父节点为<span><span class="heti-spacing"> </span>P</span>，如果父节点的父节点存在，则记为<span><span class="heti-spacing"> </span>G</span>；素材源自<a href="https://en.wikipedia.org/wiki/Splay_tree#Splaying"><span><span class="heti-spacing"> </span>Wikipedia</span></a>：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"/><input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><input id="__tabbed_3_3" name="__tabbed_3" type="radio"/><div class="tabbed-labels"><label for="__tabbed_3_1">zig</label><label for="__tabbed_3_2">zig-zig</label><label for="__tabbed_3_3">zig-zag</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="admonition note inline">
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/algorithms/29.png"><img alt="" src="/assets/images/cs/algorithms/29.png"/></a></p>
+</div>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span>G<span class="heti-spacing"> </span></span>不存在时（即<span class="heti-skip"><span class="heti-spacing"> </span>P<span class="heti-spacing"> </span></span>为根节点）执行此步骤。</p>
+<p>直接<span class="heti-skip"><span class="heti-spacing"> </span>rotate<span class="heti-spacing"> </span></span>即可，与<span class="heti-skip"><span class="heti-spacing"> </span>AVL<span class="heti-spacing"> </span></span>树的<span class="heti-skip"><span class="heti-spacing"> </span>rotateRight<span class="heti-spacing"> </span></span>操作是一致的。</p>
+</div>
+<div class="tabbed-block">
+<div class="admonition note inline">
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/algorithms/30.gif"><img alt="" src="/assets/images/cs/algorithms/30.gif"/></a></p>
+</div>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span>G<span class="heti-spacing"> </span></span>存在且<span class="heti-skip"><span class="heti-spacing"> </span>X<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>P<span class="heti-spacing"> </span></span>都是左儿子或右儿子时执行此步骤。</p>
+<p>具体来说是首先对<span class="heti-skip"><span class="heti-spacing"> </span>P<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>G<span class="heti-spacing"> </span></span>进行<span><span class="heti-spacing"> </span>rotate</span>，然后再对<span class="heti-skip"><span class="heti-spacing"> </span>X<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>P<span class="heti-spacing"> </span></span>进行<span><span class="heti-spacing"> </span>rotate</span>；注意这里的顺序是重要的，如果反过来操作的话，则是一种由<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><a href="https://en.wikipedia.org/wiki/Splay_tree#cite_note-AllenMunro-5"><span class="heti-skip"><span class="heti-spacing"> </span>Allen &amp; Munro<span class="heti-spacing"> </span></span></a>提出的<span class="heti-skip"><span class="heti-spacing"> </span>naive<span class="heti-spacing"> </span></span>的实现方式，会导致无法实现均摊对数时间复杂度。</p>
+</div>
+<div class="tabbed-block">
+<div class="admonition note inline">
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/algorithms/31.gif"><img alt="" src="/assets/images/cs/algorithms/31.gif"/></a></p>
+</div>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span>G<span class="heti-spacing"> </span></span>存在且<span class="heti-skip"><span class="heti-spacing"> </span>X<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>P<span class="heti-spacing"> </span></span>一个是左儿子一个是右儿子时执行此步骤。</p>
+<p>进行两次<span><span class="heti-spacing"> </span>rotate</span>，与<span class="heti-skip"><span class="heti-spacing"> </span>AVL<span class="heti-spacing"> </span></span>树的<span class="heti-skip"><span class="heti-spacing"> </span>rotateLeftRight<span class="heti-spacing"> </span></span>操作是一致的。</p>
+</div>
+</div>
+</div>
+<hr/>
+<p>所有的访问操作（搜索、插入和删除）都会引发展开操作：</p>
+<ul>
+<li>搜索：直接找到目标节点并对其进行展开即可</li>
+<li>插入：用二叉搜索树的插入操作插入新节点，并对其进行展开</li>
+<li>删除：用二叉搜索树的删除操作删除目标节点，并对其父节点进行展开<ul>
+<li>或者，将目标节点展开到树的根节点位置，然后删除根节点并合并左右子树</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">摊还分析<a class="headerlink" href="#_5" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h3>
 <!-- source: https://timvink.github.io/mkdocs-git-revision-date-localized-plugin/howto/override-a-theme/#example-mkdocs-material-theme -->
 <hr/>
 <div class="md-source-file">
@@ -888,7 +981,7 @@
 <!-- mkdocs-git-revision-date-localized-plugin -->
     
     最后更新:
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月12日 20:05:28</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月12日 21:49:25</span>
 <br/>
         创建日期:
         <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年3月12日 20:05:28</span>
