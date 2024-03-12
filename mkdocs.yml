@@ -152,6 +152,10 @@ nav:
         - cs/algorithm/fds/note2.md
         - cs/algorithm/fds/note3.md
         - cs/algorithm/fds/exercise.md
+      - 高级数据结构与算法分析:
+        - cs/algorithm/ads/index.md
+        - cs/algorithm/ads/note1.md
+        - cs/algorithm/ads/note2.md
       - Princeton:
         - cs/algorithm/princeton/index.md
         - cs/algorithm/princeton/note1.md
