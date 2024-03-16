@@ -119,7 +119,7 @@
 - Bloch 球表面上每一个点都表示一种量子状态（自旋状态）
 - Bloch 球中每条穿过球心的轴的两极都表示一对正交的量子状态
 - Bloch 球的 $x,y,z$ 轴分别表示三个泡利矩阵对应的正交量子状态
-- 量子状态记为 $\ket{\psi} = cos(\theta / 2) \ket{0} + e ^ {i \phi} sin(\theta / 2) \ket{1}$
+- 量子状态记为 $\ket{\psi} = \cos (\theta / 2) \ket{0} + e ^ {i \phi} \sin (\theta / 2) \ket{1}$
 
 <div style="text-align: center;">
 <img src="/assets/images/cs/information/qi/1.jpg" style="width: 40%;">
@@ -127,12 +127,12 @@
 
 关于“为什么 Bloch 球要这样定义”，下面给出一种解释：
 
-首先取基状态 $\ket{0} , \ket{1}$，任意量子状态可以表示为基状态的叠加 $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$，其中 $|\alpha| ^ 2 + |\beta| ^ 2 = 1$。然后考虑以这个量子状态及其正交态 $\ket{\bar{\psi}} = \beta ^ * \ket{0} - \alpha ^ * \ket{1}$ 作为特征向量，利用特征分解构造一个观测：
+首先取基状态 $\ket{0}$ 和 $\ket{1}$，任意量子状态可以表示为基状态的叠加 $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$，其中 $|\alpha| ^ 2 + |\beta| ^ 2 = 1$；然后考虑以这个量子状态及其正交态 $\ket{\bar{\psi}} = \beta ^ * \ket{0} - \alpha ^ * \ket{1}$ 作为特征向量，利用特征分解构造一个观测：
 
 $$
 M = \sum _ {\lambda = \pm 1} \lambda P _ \lambda = \ket{\psi} \bra{\psi} - \ket{\bar{\psi}} \bra{\bar{\psi}} = \begin{pmatrix} |\alpha| ^ 2 - |\beta| ^ 2 & 2\alpha \beta ^ * \cr 2\alpha ^ * \beta & |\beta| ^ 2 - |\alpha| ^ 2 \end{pmatrix}
 $$
 
-注意到沿着自旋方向 $\hat{n} = (n_x, n_y, n_z)$ 构造的观测可以表示成矩阵 $\sigma _ n = \vec{\sigma} \cdot \hat{n} = \sigma _ x n _ x + \sigma _ y n _ y + \sigma _ z n _ z = \begin{pmatrix} n _ z & n _ x - i n _ y \cr n _ x + i n _ y & - n _ z \end{pmatrix}$；从而我们可以找到观测 $M$ 对应的自旋方向 $\hat{\psi} = (\psi _ x, \psi _ y, \psi _ z)$，其中 $\psi _ z = |\alpha| ^ 2 - |\beta| ^ 2 , \psi _ x + i\psi _ y = 2\alpha ^ * \beta$。
+注意到沿着自旋方向 $\hat{n} = (n_x, n_y, n_z)$ 构造的观测可以表示成矩阵 $\sigma _ n = \vec{\sigma} \cdot \hat{n} = \sigma _ x n _ x + \sigma _ y n _ y + \sigma _ z n _ z = \begin{pmatrix} n _ z & n _ x - i n _ y \cr n _ x + i n _ y & - n _ z \end{pmatrix}$；从而我们可以找到观测 $M$ 对应的自旋方向 $\hat{\psi} = (\psi _ x, \psi _ y, \psi _ z)$，其中 $\psi _ z = |\alpha| ^ 2 - |\beta| ^ 2 ,\; \psi _ x + i\psi _ y = 2\alpha ^ * \beta$。
 
-这时候如果我们取 $\alpha = cos(\theta / 2) , \beta = sin(\theta / 2) e ^ {i\phi}$（正如 Bloch 球定义的那样），观测对应的自旋方向可以记为 $\hat{\psi} = (sin(\theta) cos(\phi) , sin(\theta) sin(\phi) , cos(\theta))$。注意到这时候自旋方向具有了极坐标的形式，也就是说，Bloch 球一方面可视化了由二维复向量表示的 qubit，另一方面可视化了由三维实向量表示的自旋方向，而且这两者在 Bloch 球中是完全重合的。
+这时候如果我们取 $\alpha = \cos (\theta / 2) ,\; \beta = \sin (\theta / 2) e ^ {i\phi}$（正如 Bloch 球定义的那样），观测对应的自旋方向可以记为 $\hat{\psi} = (\sin {\theta} \cos {\phi} , \sin {\theta} \sin {\phi} , \cos {\theta})$；注意到这时候自旋方向具有了极坐标的形式，也就是说，Bloch 球一方面可视化了由二维复向量表示的 qubit，另一方面可视化了由三维实向量表示的自旋方向，而且这两者在 Bloch 球中是完全重合的。
