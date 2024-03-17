@@ -102,9 +102,9 @@
 
 三个泡利矩阵及其特征向量如下（注意它们的特征值都是 $\pm 1$，分别对应两种正交的自旋状态）：
 
-- $\sigma _ z = \begin{pmatrix} 1 & 0 \cr 0 & -1 \end{pmatrix}$，$+1$ 对应 $\ket{0}$，$-1$ 对应 $\ket{1}$
-- $\sigma _ x = \begin{pmatrix} 0 & 1 \cr 1 & 0 \end{pmatrix}$，$+1$ 对应 $\ket{r} = \frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1}$，$-1$ 对应 $\ket{l} = \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1}$
-- $\sigma _ y = \begin{pmatrix} 0 & -i \cr i & 0 \end{pmatrix}$，$+1$ 对应 $\ket{i} = \frac{1}{\sqrt{2}} \ket{0} + \frac{i}{\sqrt{2}} \ket{1}$，$-1$ 对应 $\ket{o} = \frac{1}{\sqrt{2}} \ket{0} - \frac{i}{\sqrt{2}} \ket{1}$
+- $\sigma _ z = \begin{pmatrix} 1 & 0 \cr 0 & -1 \end{pmatrix}$，对应 $\ket{0}$ 和 $\ket{1}$
+- $\sigma _ x = \begin{pmatrix} 0 & 1 \cr 1 & 0 \end{pmatrix} \;\;$，对应 $\ket{r} = \frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1}$ 和 $\ket{l} = \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1}$
+- $\sigma _ y = \begin{pmatrix} 0 & -i \cr i & 0 \end{pmatrix}$，对应 $\ket{i} = \frac{1}{\sqrt{2}} \ket{0} + \frac{i}{\sqrt{2}} \ket{1}$ 和 $\ket{o} = \frac{1}{\sqrt{2}} \ket{0} - \frac{i}{\sqrt{2}} \ket{1}$
 
 下面展示如何通过泡利矩阵构造出沿着任意自旋方向的观测矩阵：
 
