@@ -21,7 +21,7 @@ AVL 树的再平衡通过所谓的“旋转”操作实现，其精髓在于把�
 
 === "RR: rotateLeft"
 
-    !!! note inline end ""
+    !!! quote inline end ""
 
         ![](/assets/images/cs/algorithms/27.png)
 
@@ -54,7 +54,7 @@ AVL 树的再平衡通过所谓的“旋转”操作实现，其精髓在于把�
 
 === "RL: rotateRightLeft"
 
-    !!! note inline end ""
+    !!! quote inline end ""
 
         ![](/assets/images/cs/algorithms/28.png)
 
@@ -130,7 +130,7 @@ AVL 树的插入和删除操作的思路都是首先进行插入和删除，然�
 
 === "zig"
 
-    !!! note inline ""
+    !!! quote inline ""
 
         ![](/assets/images/cs/algorithms/29.png)
 
@@ -140,7 +140,7 @@ AVL 树的插入和删除操作的思路都是首先进行插入和删除，然�
 
 === "zig-zig"
 
-    !!! note inline ""
+    !!! quote inline ""
 
         ![](/assets/images/cs/algorithms/30.gif)
 
@@ -150,7 +150,7 @@ AVL 树的插入和删除操作的思路都是首先进行插入和删除，然�
 
 === "zig-zag"
 
-    !!! note inline ""
+    !!! quote inline ""
 
         ![](/assets/images/cs/algorithms/31.gif)
 
@@ -179,3 +179,126 @@ AVL 树的插入和删除操作的思路都是首先进行插入和删除，然�
 - 核算法：使用“截长补短”思想，为每一种操作估计摊还成本 $\hat{c _ i} = c _ i + \varDelta _ i$ 且 $\sum _ {i=1} ^ n \hat{c _ i} \geq \sum _ {i=1} ^ n c _ i$
 - 势能法：使用“截长补短”思想，设计势能函数 $\varPhi (D _ i)$，为每一步操作估计摊还成本 $\hat{c _ i} = c _ i + (\varPhi (D _ i) - \varPhi (D _ {i-1}))$ 且 $\varPhi (D _ n) \geq \varPhi (D _ 0)$
     - Splay 树的势能法摊还分析可以参考[修佬的笔记](https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec01/#%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90)
+
+## 红黑树
+
+!!! quote inline end ""
+
+    === "显式 NIL"
+
+        ![](/assets/images/cs/algorithms/rd_with_nil.png)
+
+    === "隐式 NIL"
+
+        ![](/assets/images/cs/algorithms/rd_without_nil.png)
+
+    叶节点 NIL 是红黑树特有的定义，用于辅助黑高平衡的定义。
+
+- 红黑树是满足如下五条性质的二叉搜索树：
+    1. 每个节点或者是红色的，或者是黑色的；
+    2. 根节点是黑色的（optional）
+    3. 叶节点（NIL）是黑色的；
+    4. 红色节点的子节点都是黑色的；
+    5. 对于每个节点，从该节点到其所有后代 NIL 的简单路径上，包含的黑色节点个数（称为该节点的黑高）相同
+- 红黑树的高度至多为 $2\log (n+1)$，其中 $n$ 为节点总数（不含 NIL）
+- 红黑树的搜索、插入和删除操作的时间复杂度均为 $\Omicron(\log n)$
+
+### 插入
+
+为了尽量不破坏平衡性质，每次插入的新节点默认染成红色。如果新节点插入空树则只需染黑即可，如果新节点插入在黑色节点下面则无需调整，而如果新节点插入在红色节点下面则有可能破坏平衡，具体可以分为以下三种情况：
+
+!!! quote inline end ""
+
+    === "1"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_ins_case1.png" style="width: 60%;">
+        </div>
+
+    === "2"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_ins_case2.png" style="width: 60%;">
+        </div>
+
+    === "3"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_ins_case3.png" style="width: 60%;">
+        </div>
+
+以新节点 N 插入在祖父 G 左侧为例（右侧对称即可），素材源自 [Wikipedia](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Insertion)：
+
+- case 1：N 的叔叔 U 是红色的，无论 N 是左儿子还是右儿子
+    - 将父亲 P 和叔叔 U 染黑，并把祖父 G 染红
+    - 此时祖父 G 有可能引发新的问题（如果 G 的父亲是红色的）并向上递归做调整
+- case 2：N 的叔叔 U 是黑色的，且 N 是右儿子
+    - 对 N 和父亲 P 进行 rotate，与 AVL 树的 rotateLeft 操作是一致的
+    - 此时问题还没有解决，但是转变为 case 3
+- case 3：N 的叔叔 U 是黑色的，且 N 是左儿子
+    - 对 P 和祖父 G 进行 rotate，与 AVL 树的 rotateRight 操作是一致的
+    - rotate 操作后交换 P 和 G 的颜色（事实上所有的 rotate 操作都伴随着颜色互换）
+
+<div style="text-align: center;">
+<img src="/assets/images/cs/algorithms/rd_ins_graph.png" style="width: 50%;">
+</div>
+
+### 删除
+
+回顾二叉搜索树的[删除操作](https://note.minjoker.top/cs/algorithm/fds/note2/#_10)不难发现，第三种情况可以通过一步交换（注意这里只交换键值不交换颜色）直接转化为第一或第二种情况，因此我们只需要关注第一和第二种情况。第一种情况中替代被删除节点的是 NIL，第二种情况替代被删除节点的是其子节点。如果被删除的节点是红色的则无需调整，如果被删除的节点是黑色的且替代上来的节点是红色则只需染黑即可。
+
+而如果被删除的节点是黑色的且替代上来的节点也是黑色的（注意 NIL 也是黑色的），则问题会变得相当棘手。比较巧妙的思路是将替代上来的黑色节点临时染成“双黑”，从而保证第五条性质不被破坏，然后我们要做的就是通过调整来把这个“双黑”节点多出来的一重黑色去除，从而保证第一条性质不被破坏。具体可以分为以下四种情况：
+
+!!! quote inline end ""
+
+    === "1"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_del_case1.png" style="width: 60%;">
+        </div>
+
+    === "2.1"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_del_case2_1.png" style="width: 60%;">
+        </div>
+
+    === "2.2"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_del_case2_2.png" style="width: 60%;">
+        </div>
+
+    === "3"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_del_case3.png" style="width: 60%;">
+        </div>
+
+    === "4"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/rd_del_case4.png" style="width: 60%;">
+        </div>
+
+以被删除的节点 N 位于父亲 P 左侧为例（右侧对称即可），素材源自 [Wikipedia](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#Removal)：
+
+- case 1：N 的兄弟 S 是红色的
+    - 对 S 和父亲 P 进行 rotate，与 AVL 树的 rotateLeft 操作是一致的；并交换颜色
+    - 此时“双黑”还没有被解决，转变为其他 case
+- case 2：N 的兄弟 S 是黑色的，且 S 的两个儿子也都是黑色的
+    - 问题可以根据 P 的颜色进一步细分成 2.1 和 2.2
+    - 2.1 首先将 S 染红并将 N 去掉一重黑色，然后将 P 染黑，问题解决
+    - 2.2 首先将 S 染红并将 N 去掉一重黑色，然后将 P 染成“双黑”，问题向上递归
+- case 3：N 的兄弟 S 是黑色的，且近侄子 C 是红色的，远侄子 D 是黑色的
+    - 对 C 和 S 进行 rotate，再对 C 和 P 进行 rotate，与 AVL 树的 rotateRightLeft 操作是一致的；并交换颜色
+    - 此时“双黑”还没有被解决，转变为 case 4
+- case 4：N 的兄弟 S 是黑色的，且远侄子 D 是红色的，近侄子随意
+    - 对 S 和 P 进行 rotate，与 AVL 树的 rotateLeft 操作是一致的；并交换颜色
+    - 然后将 N 去掉一重黑色，问题解决
+
+<div style="text-align: center;">
+<img src="/assets/images/cs/algorithms/rd_del_graph.png" style="width: 60%;">
+</div>
+
+### 比较&thinsp;AVL&thinsp;树与红黑树
