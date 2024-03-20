@@ -302,3 +302,53 @@ AVL 树的插入和删除操作的思路都是首先进行插入和删除，然�
 </div>
 
 ### 比较&thinsp;AVL&thinsp;树与红黑树
+
+- 总的来说 AVL 树是严格平衡的，而红黑树只是严格的黑高平衡，其中红色节点是少量不平衡的因素；除此之外，两者都是通过旋转实现再平衡，没有很大的差别；但有趣的是，很多库函数在选择平衡搜索树实现功能时会更常用红黑树（例如 C++ 的 std::map 和 Java 的 HashMap 等）
+- AVL 树最差高度约为 $1.44 \log n$，红黑树最差高度约为 $2 \log n$，从而如果对一棵树的搜索操作居多，则 AVL 树可能会是更好的选择
+- AVL 树虽然插入只需要常数次旋转，但在删除时可能需要 $\Omicron(\log n)$ 次旋转，而红黑树的插入和删除都最多只需要常数次旋转；很多人认为代码实现时旋转是插入和删除中开销最大的操作，从而如果对一棵树的插入和删除操作很多，AVL 树不如红黑树快
+- AVL 树需要维护平衡因子，而红黑树只需要 1 bit 来表示红与黑，更节省空间
+- 红黑树是可持久化的数据结构，因此在函数式编程中容易实现；而且红黑树支持分裂、合并等操作，这使得它可以做批量并行的插入、删除
+
+## B+&thinsp;树
+
+- $M$ 阶 B+ 树是满足如下性质的树：
+    1. 根节点或者是叶子，或者有 2 到 $M$ 个儿子
+    2. 非叶节点（根节点除外）索引 $\lceil M/2 \rceil$ 到 $M$ 个儿子
+    3. 叶子节点（根节点除外）存储 $\lceil M/2 \rceil$ 到 $M$ 个数据
+- 2-3-4 树（4 阶）和 2-3 树（3 阶）这种别称表达了节点可能含有的儿子个数
+- 不同地方对 B+ 树的定义并不完全相同，这里给出一些版本（前两张来自这门课程的 PPT，第三章来自数据库教材 Database System Concepts 7th）
+
+!!! quote ""
+
+    === "2-3-4 tree"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/ads_btree_1.png" style="width: 70%;">
+        </div>
+
+    === "2-3 tree"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/ads_btree_2.png" style="width: 60%;">
+        </div>
+
+    === "db tree"
+
+        <div style="text-align: center;">
+        <img src="/assets/images/cs/algorithms/db_btree.png" style="width: 100%;">
+        </div>
+
+### 搜索、插入与删除
+
+- 搜索：搜索方法是很显然的
+    - 一方面，树的高度不超过 $\Omicron(\log _ {\lceil M/2 \rceil} N)$；另一方面，由于每层的键值是有序的，可以通过二分查找判断搜索方向，复杂度为 $\Omicron(\log _ 2 M)$；综上可得搜索的时间复杂度为 $\Omicron(\log _ {\lceil M/2 \rceil} N \cdot \log _ 2 M) = \Omicron(\log N)$
+- 插入：插入方法也是很显然的，当节点溢出时，分裂节点并向上传递
+    - 一方面，树的高度不超过 $\Omicron(\log _ {\lceil M/2 \rceil} N)$；另一方面，每层的操作最多是 $\Omicron(M)$ 的；综上可得插入的时间复杂度为 $\Omicron(\log _ {\lceil M/2 \rceil} N \cdot M) = \Omicron(\frac{M}{\log M} \log N)$
+- 删除：当节点向下溢出时，尝试重新分配键值（与相邻的兄弟节点）或直接合并节点（当重新分配失败时）
+    - 删除的时间复杂度分析与插入类似，也为 $\Omicron(\frac{M}{\log M} \log N)$
+
+### 平衡二叉搜索树&thinsp;B+&thinsp;树
+
+- B+ 树和 AVL 树、红黑树等平衡二叉搜索树的目的不完全一致：前者服务于数据库系统或文件系统，搜索存储在硬盘中的海量数据，而后者服务于一般的内存运算
+    - B+ 树具有极小的树高（$M$ 很大时）从而磁盘寻路次数大幅减少，适合于以页为单位读写的存储系统
+- 事实上红黑树的提出正是为了更方便的实现 B 树，我们学习的红黑树对应于 2-3-4 树，而 Sedgewick 提出的一种变体[左倾红黑树](https://note.minjoker.top/cs/algorithm/princeton/note1/#_36)则对应于 2-3 树
