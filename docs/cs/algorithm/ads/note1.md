@@ -370,3 +370,104 @@ document-partitioned
     - 区分 data retrieval 和 information retrieval，前者搜索的是结构化的数据，后者搜索的是非结构化的文章、网页等
     - 响应时间和索引空间都是评价这两种搜索的指标，而答案集的相关度则只针对后者
     - 答案集的相关度可以通过准确度、回调率等指标量化
+
+## 左式堆
+
+经典的二叉堆可以在 $\Omicron(\log n)$ 时间内实现插入、删除、修改权值等操作，以及线性时间建堆。而对于合并操作，最好的方法似乎是直接合并两个存储二叉堆的数组并建堆，时间复杂度为 $\Omicron(n)$，而我们希望合并操作也能在 $\Omicron(\log n)$ 时间内完成，所以需要定义新的数据结构，也就是下文的三种可合并堆。
+
+---
+
+- 节点的零路径长 Npl 定义为从该节点到一个没有儿子的节点的最短路径长度，且规定 Npl(null) = -1
+    - Npl(X) = min{ Npl(X->left), Npl(X->right) } + 1
+- 左式堆要求每个节点的左儿子 Npl 大于等于右儿子 Npl
+- 左式堆中若右路径上有 $r$ 个节点，则整个堆至少有 $2 ^ r - 1$ 个节点
+
+### 合并
+
+左式堆的插入、删除最小值（或最大值）都最终归结于合并操作，时间复杂度也完全来源于合并操作：
+
+- 插入可以视作一个左式堆和一个单节点的左式堆的合并
+- 删除最小值（或最大值）直接删除根节点并合并两个子树即可
+
+!!! quote inline end ""
+
+    === "1"
+
+        ![](/assets/images/cs/algorithms/lheap_1.jpg)
+
+        ![](/assets/images/cs/algorithms/lheap_2.jpg)
+
+    === "2"
+
+        ![](/assets/images/cs/algorithms/lheap_3.jpg)
+
+        ![](/assets/images/cs/algorithms/lheap_4.jpg)
+
+    === "3"
+
+        ![](/assets/images/cs/algorithms/lheap_5.jpg)
+
+        ![](/assets/images/cs/algorithms/lheap_6.jpg)
+
+    === "4"
+
+        ![](/assets/images/cs/algorithms/lheap_7.jpg)
+
+        ![](/assets/images/cs/algorithms/lheap_8.jpg)
+
+下面展示合并操作的递归实现，图片源自 [Wikipedia](https://en.wikipedia.org/wiki/Leftist_tree#Example)：
+
+1. 向下递进进行堆的合并
+2. 向上回归进行 Npl 的更新
+
+```c++
+PriorityQueue merge(PriorityQueue H1, PriorityQueue H2) {
+    if (H1 == NULL) return H2;
+    if (H2 == NULL) return H1;
+    if (H1->Element < H2->Element) return mergeHelper(H1, H2);
+    else                           return mergeHelper(H2, H1);
+}
+
+static PriorityQueue mergeHelper(PriorityQueue H1, PriorityQueue H2) {
+    if (H1->Left == NULL) {
+        H1->Left = H2;
+    } else {
+        H1->Right = merge(H1->Right, H2);
+        if (H1->Left->Npl < H1->Right->Npl)
+            swapChildren(H1);
+        H1->Npl = H1->Right->Npl + 1;
+    }
+    return H1;
+}
+```
+
+合并操作的时间复杂度为 $\Omicron(\log n _ 1 + n _ 2) = \Omicron(\log n _ 1 n _ 2) = \Omicron(\log \sqrt{n _ 1 n _ 2}) = \Omicron(\log (n _ 1 + n _ 2))$，其中 $n _ 1, n _ 2$ 分别表示两个堆的节点数，注意到最后一步运用了基本不等式。
+
+---
+
+左式堆的合并操作也可以通过迭代实现，具体可以理解为首先进行一个排序并合并（排序的对象是两个堆右路径上的各个节点及其左子树），然后自下而上更新 Npl，详细过程可以参考[修佬的笔记](https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec04/#%E8%BF%AD%E4%BB%A3%E5%BC%8F)。
+
+## 斜堆
+
+- 斜堆与左式堆的关系类似于 Splay 树与 AVL 树的关系
+    - Splay 树不再维护 BF，而是在每次访问节点后不断将其向上翻直至根节点
+    - 斜堆不再维护 Npl，而是在合并过程中不断将左右子树做交换直至合并完成
+- 斜堆的合并操作的摊还时间复杂度为 $\Omicron(\log n)$，其中 $n = n _ 1 + n _ 2$
+
+### 合并
+
+最直观的理解类似于左式堆的迭代式合并，将两个原始堆的右路径节点排序后依次放在堆的左路径上，且它们的左子树都换到各自的右边。
+
+=== "begin"
+
+    <div style="text-align: left;">
+    <img src="/assets/images/cs/algorithms/sheap_1.png" style="width: 40%;">
+    </div>
+
+=== "end"
+
+    <div style="text-align: left;">
+    <img src="/assets/images/cs/algorithms/sheap_2.png" style="width: 30%;">
+    </div>
+
+### 摊还分析
