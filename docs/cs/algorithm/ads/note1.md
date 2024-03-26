@@ -175,7 +175,7 @@ AVL 树的插入和删除操作的思路都是首先进行插入和删除，然�
 
 摊还分析常见方法有以下三种：
 
-- 聚合分析：寻找可能出现的操作序列中的最差序列并分析其成本 $T(n)$，直接用 $T(n)/n$ 表示每个操作的摊还成本
+- 聚合法：寻找可能出现的操作序列中的最差序列并分析其成本 $T(n)$，直接用 $T(n)/n$ 表示每个操作的摊还成本
 - 核算法：使用“截长补短”思想，为每一种操作估计摊还成本 $\hat{c _ i} = c _ i + \varDelta _ i$ 且 $\sum _ {i=1} ^ n \hat{c _ i} \geq \sum _ {i=1} ^ n c _ i$
 - 势能法：使用“截长补短”思想，设计势能函数 $\varPhi (D _ i)$，为每一步操作估计摊还成本 $\hat{c _ i} = c _ i + (\varPhi (D _ i) - \varPhi (D _ {i-1}))$ 且 $\varPhi (D _ n) \geq \varPhi (D _ 0)$
     - Splay 树的势能法摊还分析可以参考[修佬的笔记](https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec01/#%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90)
@@ -471,3 +471,95 @@ static PriorityQueue mergeHelper(PriorityQueue H1, PriorityQueue H2) {
     </div>
 
 ### 摊还分析
+
+摊不动一点……
+
+## 二项堆
+
+经典的二叉堆可以在 $\Omicron(n)$ 时间内实现 $n$ 个节点的插入建堆操作，从而拥有常数的均摊时间，而左式堆和斜堆不可以。二项堆的引入是为了在保持对数时间合并操作的条件下进一步优化插入的时间复杂度。
+
+---
+
+!!! quote inline end ""
+
+    ![](/assets/images/cs/algorithms/bheap.png)
+
+- 二项堆是由若干二项树（阶数相异且满足堆性质）构成的森林
+- $k$ 阶二项树有 $2 ^ k$ 个节点，深度为 $d$ 的节点数是二项系数 $\begin{pmatrix} k \cr d \end{pmatrix}$
+- 二项堆的结构与二进制是相呼应的，可以借助二进制帮助理解
+- 二项堆的插入操作是 $\Omicron(\log n)$ 的，但从空开始建堆的时间复杂度是 $\Omicron(1)$ 的
+
+### 合并、插入与删除
+
+插入与删除最小值操作都可以归结于合并操作：插入相当于合并一个单节点的 $0$ 阶二项树；删除最小值操作首先用 $\Omicron(\log n)$ 时间找到最小值，然后合并两个堆，其一是原始堆移除 $B _ k$ 后剩下的堆，其二是 $B _ k$ 移除根节点后剩下的堆。
+
+=== "合并"
+
+    ```c++ linenums="1"
+    BinTree combine(BinTree T1, BinTree T2) {
+        if (T1->Element > T2->Element) return combine(T2, T1);
+        T2->NextSibling = T1->LeftChild;
+        T1->LeftChild = T2;
+        return T1;
+    }
+
+    BinQueue merge(BinQueue H1, BinQueue H2) {
+        if (H1->CurrentSize + H2->CurrentSize > Capacity) error();
+        H1->CurrentSize += H2->CurrentSize;
+        BinTree T1, T2, Carry = NULL;
+        for (int i = 0, j = 1; j <= H1->CurrentSize; i++, j *= 2) {
+            T1 = H1->TheTrees[i];
+            T2 = H2->TheTrees[i];
+            switch(4 * !!Carry + 2 * !!T2 + !!T1) { /* convert to bool type */
+                case 0: /* 000 */
+                case 1: /* 001 */                                                  break;
+                case 2: /* 010 */ H1->TheTrees[i] = T2; H2->TheTrees[i] = NULL;    break;
+                case 3: /* 011 */ Carry = combine(T1, T2);
+                                  H1->TheTrees[i] = H2->TheTrees[i] = NULL;        break;
+                case 4: /* 100 */ H1->TheTrees[i] = Carry; Carry = NULL;           break;
+                case 5: /* 101 */ Carry = combine(T1, Carry);
+                                  H1->TheTrees[i] = NULL;                          break;
+                case 6: /* 110 */ Carry = combine(T2, Carry);
+                                  H2->TheTrees[i] = NULL;                          break;
+                case 7: /* 111 */ Carry = combine(T1, T2);
+                                  H1->TheTrees[i] = Carry; H2->TheTrees[i] = NULL; break;
+            }
+        }
+        return H1;
+    }
+    ```
+
+=== "删除"
+
+    ```c++ linenums="1"
+    ElementType deleteMin(BinQueue H) {
+        if (isEmpty(H)) { error(); return -Infinity; }
+        ElementType MinItem = Infinity;
+        int MinTree;
+        for (int i = 0; i < MaxTrees; i++) {
+            /* MaxTree can be replaced by the actual number of roots */
+            if (H->TheTrees[i] && H->TheTrees[i]->Element < MinItem) {
+                MinItem = H->TheTrees[i]->Element;
+                MinTree = i;
+            }
+        }
+        Position DeletedTree = H->TheTrees[i]->LeftChild;
+        H->TheTrees[i] = NULL;
+        BinQueue DeletedQueue = Initialize();
+        for (int j = MinTree - 1; j >= 0; j--) {
+            DeletedQueue->TheTrees[j] = DeletedTree;
+            DeletedTree = DeletedTree->NextSibling;
+            DeletedQueue->TheTrees[j]->NextSibling = NULL;
+        }
+        DeletedQueue->CurrentSize = (1 << MinTree) - 1; /* 2^{MinTree} - 1 */
+        H->CurrentSize -= DeletedQueue->CurrentSize + 1;
+        H = merge(H, DeletedQueue);
+        return MinItem;
+    }
+    ```
+
+### 摊还分析
+
+求解从空开始插入建堆的时间复杂度可以进行摊还分析。
+
+最简单的一种思路是聚合法，类比合并操作与二进制加法可以发现，从空开始插入 $n$ 个节点建堆的时间复杂度与从 $0$ 开始不断加 $1$ 做二进制加法时比特翻转总次数是一致的。具体而言，最低位每次加 $1$ 都会翻转，次低位每两次加 $1$ 翻转一次，倒数第三位每四次加 $1$ 翻转一次……以此类推 $n$ 次操作的时间复杂度为 $\Omicron(n + \frac{n}{2} + \frac{n}{4} + \cdots + \frac{n}{2 ^ {\lfloor \log n \rfloor + 1}}) = \Omicron(2n)$，从而单步操作的摊还时间是 $\Omicron(1)$ 的。
