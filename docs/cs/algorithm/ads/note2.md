@@ -15,14 +15,14 @@
     ```c linenums="1"
     bool backtracking(int i) {
         bool found = false;
-        if (i > N) return true; // solved with X[1]...X[N]
+        if (i > N) return true; /* solved with X[1]...X[N] */
         for (each X[i] in S[i]) {
-            // check if satisfies the restriction R
-            ok = check(X, R); // pruning
+            /* check if satisfies the restriction R */
+            ok = check(X, R);            /* pruning */
             if (ok) {
                 count X[i] in;
                 found = backtracking(i+1);
-                if (!found) undo(i); // backtrack to X[1]...X[i-1]
+                if (!found) undo(i); /* backtrack to X[1]...X[i-1] */
             }
             if (found) break;
         }
@@ -39,26 +39,27 @@
         if (isEmpty(D)) return true;
         maxD = findMax(D);
         /* option 1: X[right] = maxD */
-        ok = check(maxD, N, left, right); // check if every |maxD-X[i]| is in D for all X[i]'s that have been solved
-        if (ok) { // add X[right] and update D
+        /* check if every |maxD-X[i]| is in D for all X[i]'s that have been solved */
+        ok = check(maxD, N, left, right);
+        if (ok) {
             X[right] = maxD;
             for (i = 1; i < left; i++)     delete(|X[right]-X[i]|, D);
             for (i = right+1; i <= N; i++) delete(|X[right]-X[i]|, D);
             found = reconstruct(X, D, N, left, right-1);
-            if (!found) { // if does not work, backtrack
+            if (!found) { /* backtrack */
                 for (i = 1; i < left; i++)     insert(|X[right]-X[i]|, D);
                 for (i = right+1; i <= N; i++) insert(|X[right]-X[i]|, D);
             }
         }
         /* option 2: X[left] = X[N] - maxD */
-        if (!found) { // if option 1 does not work
-            ok = check(X[N]-maxD, N, left, right); // check if every |(X[N]-maxD)-X[i]| is in D for all X[i]'s that have been solved
-            if (ok) { // add X[left] and update D
+        if (!found) {
+            ok = check(X[N]-maxD, N, left, right);
+            if (ok) {
                 X[left] = X[N] - maxD;
                 for (i = 1; i < left; i++)     delete(|X[left]-X[i]|, D);
                 for (i = right+1; i <= N; i++) delete(|X[left]-X[i]|, D);
                 found = reconstruct(X, D, N, left+1, right);
-                if (!found) { // if does not work, backtrack
+                if (!found) { /* backtrack */
                     for (i = 1; i < left; i++)     insert(|X[left]-X[i]|, D);
                     for (i = right+1; i <= N; i++) insert(|X[left]-X[i]|, D);
                 }
