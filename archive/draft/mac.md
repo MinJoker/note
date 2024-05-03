@@ -9,6 +9,7 @@
 - git: `brew install git`
     - config user.name and user.email
     - generate ssh key and connect to GitHub
+    - when first push, answer `yes` to update the list of known hosts
 - python: `brew install python`
     - `python3 --version`
     - `pip3 --version`
