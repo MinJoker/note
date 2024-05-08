@@ -126,6 +126,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://note.minjoker.top/cs/system/organization/</loc>
+         <lastmod>2024-05-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://note.minjoker.top/cs/system/organization/note1/</loc>
+         <lastmod>2024-05-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://note.minjoker.top/cs/tools/markdown/</loc>
          <lastmod>2024-05-08</lastmod>
          <changefreq>daily</changefreq>
