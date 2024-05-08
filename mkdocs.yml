@@ -166,6 +166,9 @@ nav:
         - cs/system/digital_logic/note1.md
         - cs/system/digital_logic/note2.md
         - cs/system/digital_logic/note3.md
+      - 计算机组成:
+        - cs/system/organization/index.md
+        - cs/system/organization/note1.md
     - 信息与编码理论:
       - 量子信息基础:
         - cs/information/qi/index.md
