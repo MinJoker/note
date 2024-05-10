@@ -12,3 +12,4 @@
 ## Table of Contents
 
 - [RISC-V 指令](note1.md)
+- [RISC-V 处理器](note2.md)
