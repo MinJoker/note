@@ -1,4 +1,4 @@
-# 课程笔记
+# 量子基础
 
 ## 信息、熵与计算复杂度
 
@@ -18,14 +18,14 @@
 - 由可加性，对于任意实数 $r$，有 $I(p_x ^ r) = rI(p_x)$
 - 进一步地，由连续性，有 $I(p_x) = I((1/2) ^ {-\log _2 (p_x)}) = -\log _2 (p_x) I(1/2)$
 
-常数 $I(1/2)$ 可以被视作信息量的单位，从而可以定义[香农熵](https://en.wikipedia.org/wiki/Entropy_(information_theory))：
+常数 $I(1/2)$ 可以被视作信息量的单位，从而可以定义香农熵：
 
 - 发生概率为 $p_x$ 的事件 $x$ 的香农熵为 $-\log _2 (p_x)$
 - 一系列发生概率分别为 $p_1, p_2, ..., p_n$ 的事件的平均信息量为 $H \sim -\sum _{i=1} ^ n p_i \log _2 p_i$
 
 ---
 
-香农熵的一个重要应用是[香农源编码理论](https://en.wikipedia.org/wiki/Entropy_(information_theory))：对于源为独立同分布随机变量的数据，香农熵提供了一个数据压缩的下界。具体而言，当数据量趋于无穷时，不可能压缩这些数据以使得码率（每个符号的平均 bit 位数）小于源的香农熵 $H$。
+香农熵的一个重要应用是香农源编码理论：对于源为独立同分布随机变量的数据，香农熵提供了一个数据压缩的下界。具体而言，当数据量趋于无穷时，不可能压缩这些数据以使得码率（每个符号的平均 bit 位数）小于源的香农熵 $H$。
 
 ### 计算复杂度
 
@@ -43,7 +43,7 @@
 
 ### 狄拉克记号
 
-[狄拉克记号](https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation)广泛应用于量子信息领域，其基本记法如下：
+狄拉克记号广泛应用于量子信息领域，其基本记法如下：
 
 - 复向量空间 $V$ 中的向量记为 $\ket{v}$，线性泛函 $f: V \rightarrow \Complex$ 记为 $\bra{f}$，线性泛函作用于向量记为 $\braket{f|v} \in \Complex$
 - 复向量内积空间 $V$ 中有内积 $(\cdot , \cdot)$ 且第一位是共轭线性的，对于向量 $\phi$ 可以定义 $(\phi , \cdot) \equiv \bra{\phi}$，其中线性泛函 $\bra{\phi}$ 是向量 $\ket{\phi}$ 的伴随（矩阵形式的共轭转置），从而内积记为 $(\phi , \psi) \equiv \braket{\phi | \psi}$
@@ -62,7 +62,7 @@
 
 - 线偏振光：$\begin{cases} E_x = E_0 \cos \theta \cos \omega t \cr E_y = E_0 \sin \theta \cos \omega t \end{cases}$
     - 可以用单位复向量 $\ket{p} = (\cos \theta , \sin \theta) ^ T$ 表示这个线偏振光
-    - [Malus 定律](https://en.wikipedia.org/wiki/Polarizer#Malus's_law_and_other_properties) $I ^ {\prime} = I \cos ^ 2 \theta$ 的统计学描述：偏振方向为 $\ket{p} = (\cos \theta , \sin \theta) ^ T$ 的 $N$ 个光子透过偏振方向为 $\ket{n} = (1, 0) ^ T$ 的偏振片，透过率约为 $N_x / N \simeq \cos ^ 2 \theta = \braket{p | n}$
+    - Malus 定律 $I ^ {\prime} = I \cos ^ 2 \theta$ 的统计学描述：偏振方向为 $\ket{p} = (\cos \theta , \sin \theta) ^ T$ 的 $N$ 个光子透过偏振方向为 $\ket{n} = (1, 0) ^ T$ 的偏振片，透过率约为 $N_x / N \simeq \cos ^ 2 \theta = \braket{p | n}$
 - 椭圆偏振光：$\begin{cases} E_x = E_0 \cos \theta \cos (\omega t - \delta _x) = E_0 \text{Re} (\mu e ^ {-i\omega t}) & ,\; \mu = \cos \theta e ^ {i\delta _x} \cr E_y = E_0 \sin \theta \cos (\omega t - \delta _y) = E_0 \text{Re} (\nu e ^ {-i\omega t}) & ,\; \nu = \sin \theta e ^ {i\delta _y} \end{cases}$
     - 可以用单位复向量 $\ket{p} = (\mu, \nu) ^ T$ 表示这个椭圆偏振光，由于物理上相位差 $\delta = \delta _y - \delta _x$ 才是有意义的，因此 $\ket{p}$ 可由两个实参数 $\theta , \delta$ 唯一确定
     - 圆偏振光的 $\theta = \pi / 4$ 且 $\delta = \pm \pi / 2$，可以用单位复向量 $\frac{1}{\sqrt{2}} (1 , \pm i) ^ T$ 表示
@@ -80,17 +80,18 @@
 
 ### 自旋与线性算子
 
-孤立的 [1/2 自旋](https://en.wikipedia.org/wiki/Spin-1/2)是量子比特 qubit 的一个范例，可以用一个二维复向量来表示一个 1/2 自旋状态。
+孤立的 1/2 自旋是量子比特 qubit 的一个范例，可以用一个二维复向量来表示一个 1/2 自旋状态。
 
 - 引入正交基 $\ket{0} \equiv \ket{\uparrow} = \begin{pmatrix} 1 \cr 0 \end{pmatrix} , \ket{1} \equiv \ket{\downarrow} = \begin{pmatrix} 0 \cr 1 \end{pmatrix}$
 - 任意自旋状态都可以表示为 $\ket{\uparrow}$ 和 $\ket{\downarrow}$ 这两种自旋状态的叠加 $\ket{\psi} = \alpha \ket{\uparrow} + \beta \ket{\downarrow}$ 且 $|\alpha| ^ 2 + |\beta| ^ 2 = 1$
 
-对系统的自旋状态的观测用一个[厄米的（自伴的）](https://en.wikipedia.org/wiki/Self-adjoint_operator)线性算子表示。
+对系统的自旋状态的观测用一个[厄米](https://en.wikipedia.org/wiki/Self-adjoint_operator)的（或者说自伴的）线性算子表示。
 
 - 考虑其特征方程 $M \ket{\lambda} = \lambda \ket{\lambda}$，每个特征值 $\lambda$ 都是实的
 - 考虑其特征分解 $M = \sum _ {\lambda \lambda ^ \prime} \ket{\lambda} \bra{\lambda} M \ket{\lambda ^ \prime} \bra{\lambda ^ \prime} = \sum _ {\lambda} \lambda \ket{\lambda} \bra{\lambda} = \sum _{\lambda} \lambda P _ {\lambda}$
 - 对于自旋状态 $\ket{\psi}$ 和观测 $M$，观测到特征向量 $\ket{\lambda}$ 表示的自旋状态的概率为 $\text{P} _ {\lambda} = \braket{\psi | \lambda} \braket{\lambda | \psi}$
-- 观测是不可逆的，经过观测的系统会坍缩到其一特征向量表示的自旋状态（经典的 [Stern-Gerlach 实验](https://en.wikipedia.org/wiki/Stern%E2%80%93Gerlach_experiment)反映了观测如何影响 1/2 系统的自旋状态）；我们无法预测系统会坍缩到哪种状态，但我们能分析系统坍缩到这些状态的概率
+- 对于自旋状态 $\ket{\psi}$ 和观测 $M$，定义期望为 $\braket{M} \equiv \braket{\psi | M | \psi} = \sum _ {\lambda} \lambda \braket{\psi | \lambda} \braket{\lambda | \psi} = \sum _ {\lambda} \lambda \text{P} _ {\lambda}$
+- 观测是不可逆的，经过观测的系统会坍缩到其一特征向量表示的自旋状态（经典的 Stern-Gerlach 实验反映了观测如何影响 1/2 系统的自旋状态）；我们无法预测系统会坍缩到哪种状态，但我们能分析系统坍缩到这些状态的概率
 
 <div style="text-align: center;">
 <img src="/assets/images/cs/information/qi/2.jpg" style="width: 40%;">
@@ -98,7 +99,7 @@
 
 ### 泡利矩阵
 
-[泡利矩阵](https://en.wikipedia.org/wiki/Pauli_matrices)是三个厄米的 $2 \times 2$ 复向量矩阵，它们本身即可表示三种观测；更为重要的是，它们的线性组合可以构造出沿着任意自旋方向的观测。
+泡利矩阵是三个厄米的 $2 \times 2$ 复向量矩阵，它们本身即可表示三种观测；更为重要的是，它们的线性组合可以构造出沿着任意自旋方向的观测。
 
 三个泡利矩阵及其特征向量如下（注意它们的特征值都是 $\pm 1$，分别对应两种正交的自旋状态）：
 
@@ -114,7 +115,7 @@
 
 ### Bloch&thinsp;球
 
-[Bloch 球](https://en.wikipedia.org/wiki/Bloch_sphere)是 qubit 的一种几何表示：
+Bloch 球是 qubit 的一种几何表示：
 
 - Bloch 球表面上每一个点都表示一种量子状态（自旋状态）
 - Bloch 球中每条穿过球心的轴的两极都表示一对正交的量子状态
@@ -136,3 +137,96 @@ $$
 注意到沿着自旋方向 $\hat{n} = (n_x, n_y, n_z)$ 构造的观测可以表示成矩阵 $\sigma _ n = \vec{\sigma} \cdot \hat{n} = \sigma _ x n _ x + \sigma _ y n _ y + \sigma _ z n _ z = \begin{pmatrix} n _ z & n _ x - i n _ y \cr n _ x + i n _ y & - n _ z \end{pmatrix}$；从而我们可以找到观测 $M$ 对应的自旋方向 $\hat{\psi} = (\psi _ x, \psi _ y, \psi _ z)$，其中 $\psi _ z = |\alpha| ^ 2 - |\beta| ^ 2 ,\; \psi _ x + i\psi _ y = 2\alpha ^ * \beta$。
 
 这时候如果我们取 $\alpha = \cos (\theta / 2) ,\; \beta = \sin (\theta / 2) e ^ {i\phi}$（正如 Bloch 球定义的那样），观测对应的自旋方向可以记为 $\hat{\psi} = (\sin {\theta} \cos {\phi} , \sin {\theta} \sin {\phi} , \cos {\theta})$；注意到这时候自旋方向具有了极坐标的形式，也就是说，Bloch 球一方面可视化了由二维复向量表示的 qubit，另一方面可视化了由三维实向量表示的自旋方向，而且这两者在 Bloch 球中是完全重合的。
+
+值得强调的是，上文描述的 Bloch 球中同一点对应的量子状态与自旋方向是有实际联系的。对于量子态 $\ket{\psi} = \cos (\theta / 2) \ket{0} + e ^ {i \phi} \sin (\theta / 2) \ket{1}$，总能找到一个特定方向 $\hat{n}$，使得相应的观测期望为 $\braket{\vec{\sigma} \cdot \hat{n}} = 1$，而这个方向恰为 $\hat{n} = (\sin {\theta} \cos {\phi} , \sin {\theta} \sin {\phi} , \cos {\theta})$。
+
+## 多量子比特与量子纠缠
+
+### 直积态与纠缠态
+
+由多个量子比特组成的系统可以分为直积态和纠缠态，这里以 two-qubit 系统为例。首先定义张量积如下：
+
+$$
+A \otimes B = \begin{pmatrix} a _ {11} B & a _ {12} B & \cdots & a _ {1n} B \cr a _ {21} B & a _ {22} B & \cdots & a _ {2n} B \cr \vdots & \vdots & \ddots & \vdots \cr a _ {n1} B & a _ {n2} B & \cdots & a _ {nn} B \end{pmatrix}
+$$
+
+取任意两个 qubit 分别为 $\alpha _ 1 \ket{0} + \beta _ 1 \ket{1}$ 和 $\alpha _ 2 \ket{0} + \beta _ 2 \ket{1}$，使用张量积构建直积态的 two-qubit 系统：
+
+$$
+(\alpha _ 1 \ket{0} + \beta _ 1 \ket{1}) \otimes (\alpha _ 2 \ket{0} + \beta _ 2 \ket{1}) = \alpha _ 1 \alpha _ 2 \ket{00} + \alpha _ 1 \beta _ 2 \ket{01} + \beta _ 1 \alpha _ 2 \ket{10} + \beta _ 1 \beta _ 2 \ket{11}
+$$
+
+对于直积态的 two-qubit 而言，这两个 qubit 是独立的、可分的，可以仅对其中一个 qubit 进行操作：
+
+$$
+(L \otimes I) (\ket{u} \otimes \ket{v}) = (L \ket{u}) \otimes \ket{v}
+$$
+
+不同于直积态，纠缠态的 two-qubit 不能拆分成张量积的形式，两个 qubit 是相互纠缠、非独立的。
+
+例如贝尔态（纠缠态的一个范例），取 $\ket{\Psi _ {+}} = \frac{1}{\sqrt{2}} (\ket{01} + \ket{10})$，注意到如果第一个 qubit 处于状态 $\ket{0}$，则第二个 qubit 必然处于状态 $\ket{1}$，反之亦然。
+
+### 贝尔态
+
+贝尔态具有四个基状态：
+
+- $\ket{\Phi _ {+}} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11})$，$\ket{\Phi _ {-}} = \frac{1}{\sqrt{2}} (\ket{00} - \ket{11})$
+- $\ket{\Psi _ {+}} = \frac{1}{\sqrt{2}} (\ket{01} + \ket{10})$，$\ket{\Psi _ {-}} = \frac{1}{\sqrt{2}} (\ket{01} - \ket{10})$
+
+为了进一步理解直积态和纠缠态的区别，我们考虑仅对第一个 qubit 进行观测：
+
+- 对于直积态，两个 qubit 是完全独立的，因此仅对第一个 qubit 进行观测的结果与直接对单个 qubit 进行观测是一样的
+    - 取 $\ket{\psi} = \cos (\theta / 2) \ket{0} + e ^ {i \phi} \sin (\theta / 2) \ket{1}$，总能找到一个特定方向 $\hat{n} = (\sin {\theta} \cos {\phi} , \sin {\theta} \sin {\phi} , \cos {\theta})$，使得相应的观测期望为 $\braket{\vec{\sigma} \cdot \hat{n}} = 1$
+- 对于纠缠态，两个 qubit 是相互纠缠的，而且仅对第一个 qubit 进行观测是无法得到有效信息的
+    - 取贝尔基 $\ket{\Psi _ {+}}$，对任意方向 $\hat{n}$，均有 $\braket{\vec{\sigma ^ {(1)}} \cdot \hat{n}} = 0$，其中观测严格来说应该写为 $(\vec{\sigma ^ {(1)}} \cdot \hat{n}) \otimes I$；即仅对第一个 qubit 进行的任何观测期望均为 0，观测结果等可能地分布于 $\pm 1$，无法得到任何信息
+
+如果想要得到非零的观测结果（即包含有效信息的观测结果），需要对纠缠态整体进行观测，例如：
+
+$$
+\sigma ^ {(1)} \cdot \sigma ^ {(2)} = \sigma ^ {(1)} _ {x} \sigma ^ {(2)} _ {x} + \sigma ^ {(1)} _ {y} \sigma ^ {(2)} _ {y} + \sigma ^ {(1)} _ {z} \sigma ^ {(2)} _ {z}
+$$
+
+上述观测作用于贝尔态的四个基状态得到的期望分别为 $+1, +1, +1, -3$，恰好对应于这个观测的四个特征值。
+
+### 密度矩阵与约化密度矩阵
+
+密度矩阵是描述量子系统的重要工具，可以用于估计观测结果，与经典系统的概率论相对应。
+
+- 纯态 $\ket{\psi}$ 的密度矩阵为 $\rho \equiv \ket{\psi} \bra{\psi}$，混合态的密度矩阵为 $\rho = \sum _ {i} \ket{\psi _ {i} \bra{\psi _ {i}}}$
+- 观测 $L$ 作用于量子态的期望可以通过相应的密度矩阵计算得到，$\braket{L} = \text{Tr} (\rho L)$，对于纯态和混合态均适用；其中，$\text{Tr}$ 表示矩阵求迹，定义为 $\text{Tr} (L) = \sum _ {i} \braket{i | L | i}$
+
+密度矩阵具有如下性质：
+
+- 密度矩阵都是厄米的，即 $\rho _ {ij} = \rho _ {ji} ^ *$
+- 密度矩阵的迹均为 1，即 $\text{Tr} (\rho) = 1$
+- 密度矩阵的特征值均为介于 0 和 1 之间的正数
+
+约化密度矩阵是描述多量子比特系统的子系统的工具，可以用于估计仅作用于子系统的观测结果。对于 two-qubit 系统，记两个 qubit 分别表示子系统 A 和 B，则描述子系统 A 的约化密度矩阵为 $\rho _ {A} = \text{Tr} _ {B} (\rho)$，观测期望为 $\braket{L _ {A}} = \text{Tr} _ {A} (\rho _ {A} L _ {A})$。注意，其中 $\text{Tr} _ {A}$ 表示矩阵求部分迹，且基于约化密度矩阵的期望并非常数，而是一个更低维的矩阵。
+
+- 对于直积态 $\ket{\psi} = \ket{\lambda} _ {A} \ket{\phi} _ {B}$，子系统 A 的约化密度矩阵为 $\rho _ {A} = \text{Tr} _ {B} (\rho) = \ket{\lambda} \bra{\lambda}$，注意到 $\text{Tr} (\rho _ {A} ^ 2) = \text{Tr} (\rho _ {A}) = 1$，故子系统 A 是纯态
+- 对于纠缠态，纯的纠缠态可以写作 $\ket{\psi} = \sum _ i c _ i \ket{\lambda _ i} _ A \ket{\phi _ i} _ B$，子系统 A 的约化密度矩阵为 $\rho _ {A} = \text{Tr} _ {B} (\rho) = \sum _ i | c _ i | ^ 2 \ket{\lambda _ i} \bra{\lambda _ i}$，注意到 $\text{Tr} (\rho _ A) = 1$，但 $\text{Tr} (\rho _ A ^ 2) = \text{Tr} (\rho _ B ^ 2) \not = 1$，故子系统 A 是混合态
+
+---
+
+类似于香农熵可以描述信息量，为描述由 A 和 B 两个子系统构成的纠缠系统，可以定义纠缠熵：
+
+$$
+S _ A \equiv - \text{Tr} _ A (\rho _ A \log _ 2 \rho _ A) = - \sum _ i | c _ i | ^ 2 \log _ 2 | c _ i | ^ 2 \;,\;\; S _ A = S _ B
+$$
+
+### 纯态与混合态
+
+纯态是经过充分的观测后被完全确定的量子态，而混合态是一系列纯态的统计学叠加。
+
+- 纯态既可用狄拉克记号描述，也可用密度矩阵描述；而混合态只可用密度矩阵描述
+- 对于纯态，有 $\rho ^ 2 = \rho ,\;\; \text{Tr} (\rho ^ 2) = 1$；对于混合态，有 $\rho ^ 2 \not = \rho ,\;\; \text{Tr} (\rho ^ 2) < 1$
+- 在 Bloch 球中，球表面上的点表示纯态，球内部的点表示混合态
+
+此外，为了进一步理解为什么“概率幅不是经典系统的概率论的量子对应，但密度矩阵是”，我们考虑构建一个 50%-50% 的叠加态：
+
+- 考虑纯态 $\ket{\psi} = \frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1}$，其中两个基态的概率幅相等，但 $\ket{\psi}$ 事实上并不是一个 50%-50% 的叠加态，因为 $\ket{0}$ 和 $\ket{1}$ 存在相互干涉。当我们考察密度矩阵 $\rho = \ket{\psi} \bra{\psi} = \frac{1}{2} \ket{0} \bra{0} + \frac{1}{2} \ket{0} \ket{1} + \frac{1}{2} \ket{1} \ket{0} + \frac{1}{2} \ket{1} \ket{1}$ 或者观测期望 $\braket{A} = \frac{1}{2} \braket{0 | A | 0} + \frac{1}{2} \braket{0 | A | 1} + \frac{1}{2} \braket{1 | A | 0} + \frac{1}{2} \braket{1 | A | 1}$ 时，可以明显注意到结果的中间有两个 $\ket{0}$ 和 $\ket{1}$ 的相干项
+- 考虑混合态 $\rho = \frac{1}{2} \ket{0} \bra{0} + \frac{1}{2} \ket{1} \bra{1}$，事实上这才是我们想要的 50%-50% 的叠加态，两个基态之间并不相干，因此可以直接使用经典系统概率论的加法原理进行叠加。当我们考虑观测期望 $\braket{A} = \frac{1}{2} \braket{0 | A | 0} + \frac{1}{2} \braket{1 | A | 1}$ 时，也可以明显注意到结果中并不存在相干项
+
+## 量子系统的含时演化
+
+## 量子门与量子电路
