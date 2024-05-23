@@ -85,7 +85,7 @@
 - 引入正交基 $\ket{0} \equiv \ket{\uparrow} = \begin{pmatrix} 1 \cr 0 \end{pmatrix} , \ket{1} \equiv \ket{\downarrow} = \begin{pmatrix} 0 \cr 1 \end{pmatrix}$
 - 任意自旋状态都可以表示为 $\ket{\uparrow}$ 和 $\ket{\downarrow}$ 这两种自旋状态的叠加 $\ket{\psi} = \alpha \ket{\uparrow} + \beta \ket{\downarrow}$ 且 $|\alpha| ^ 2 + |\beta| ^ 2 = 1$
 
-对系统的自旋状态的观测用一个[厄米](https://en.wikipedia.org/wiki/Self-adjoint_operator)的（或者说自伴的）线性算子表示。
+对系统的自旋状态的观测用一个厄米的（自伴的）线性算子表示。
 
 - 考虑其特征方程 $M \ket{\lambda} = \lambda \ket{\lambda}$，每个特征值 $\lambda$ 都是实的
 - 考虑其特征分解 $M = \sum _ {\lambda \lambda ^ \prime} \ket{\lambda} \bra{\lambda} M \ket{\lambda ^ \prime} \bra{\lambda ^ \prime} = \sum _ {\lambda} \lambda \ket{\lambda} \bra{\lambda} = \sum _{\lambda} \lambda P _ {\lambda}$
@@ -142,7 +142,7 @@ $$
 
 ## 多量子比特与量子纠缠
 
-### 直积态与纠缠态
+### 多量子比特系统
 
 由多个量子比特组成的系统可以分为直积态和纠缠态，这里以 two-qubit 系统为例。首先定义张量积如下：
 
@@ -228,5 +228,36 @@ $$
 - 考虑混合态 $\rho = \frac{1}{2} \ket{0} \bra{0} + \frac{1}{2} \ket{1} \bra{1}$，事实上这才是我们想要的 50%-50% 的叠加态，两个基态之间并不相干，因此可以直接使用经典系统概率论的加法原理进行叠加。当我们考虑观测期望 $\braket{A} = \frac{1}{2} \braket{0 | A | 0} + \frac{1}{2} \braket{1 | A | 1}$ 时，也可以明显注意到结果中并不存在相干项
 
 ## 量子系统的含时演化
+
+### 含时演化
+
+量子系统的含时演化是确定的、可逆的，有别于不确定的、不可逆的观测行为。
+
+- 含时演化可由一个酉矩阵描述：$\ket{\psi (t)} = U(t) \ket{\psi (0)}$，其中 $U(t)$ 为含时演化算子
+- 含时演化遵循薛定谔方程 $i\hbar \frac{\partial}{\partial t} \ket{\psi (t)} = H \ket{\psi (t)}$，其中 $H$ 为哈密顿量
+
+通常而言，我们通过实验测量、理论推导等方式得到量子系统的哈密顿量，从而计算量子系统如何随着时间发生演化。如果哈密顿量与时间无关，则薛定谔方程显然有解 $\ket{\psi (t)} \equiv U(t) \ket{\psi (0)} = e ^ {-iHt / \hbar} \ket{\psi (0)}$。
+
+### Rabi&thinsp;振动
+
+对于处在磁场 $\vec{B}$ 中的 qubit，哈密顿量可由 $H = -\sigma \cdot \vec{B}$ 计算得到。取磁场为 $\vec{B} = B _ z \hat{z} + B _ 1 (\cos \omega t \hat{x} - \sin \omega t \hat{y})$，则哈密顿量为：
+
+$$
+H(t) = - \frac{\hbar \omega _ 0}{2} \sigma _ z - \frac{\hbar \omega _ 1}{2} (\sigma _ x \cos \omega t - \sigma _ y \sin \omega t)
+$$
+
+旋转参考系使得哈密顿量与时间无关：
+
+$$
+H ^ {\prime} = - \frac{\hbar (\omega _ 0 - \omega)}{2} \sigma _ z - \frac{\hbar \omega _ 1}{2} \sigma _ x
+$$
+
+取 $\ket{\psi (0)} = \ket{0}$，则在时间 $t$ 时量子态处于 $\ket{1}$ 的概率是：
+
+$$
+|\braket{1 | \psi (t)}| ^ 2 = |\braket{1 | e ^ {-iHt / \hbar} | 0}| ^ 2 = (\frac{\omega _ 1}{\Omega}) ^ 2 \sin ^ 2 \frac{\Omega t}{2}
+$$
+
+其中，$\Omega = \sqrt{(\omega - \omega _ 0) ^ 2 + \omega _ 1 ^ 2}$；注意这里推导的关键一步是变换 $\exp (i\frac{\theta}{2} \sigma \cdot \hat{n}) = I \cos \frac{\theta}{2} + i (\sigma \cdot \hat{n}) \sin \frac{\theta}{2}$。
 
 ## 量子门与量子电路
