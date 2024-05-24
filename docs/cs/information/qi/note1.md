@@ -85,7 +85,7 @@
 - 引入正交基 $\ket{0} \equiv \ket{\uparrow} = \begin{pmatrix} 1 \cr 0 \end{pmatrix} , \ket{1} \equiv \ket{\downarrow} = \begin{pmatrix} 0 \cr 1 \end{pmatrix}$
 - 任意自旋状态都可以表示为 $\ket{\uparrow}$ 和 $\ket{\downarrow}$ 这两种自旋状态的叠加 $\ket{\psi} = \alpha \ket{\uparrow} + \beta \ket{\downarrow}$ 且 $|\alpha| ^ 2 + |\beta| ^ 2 = 1$
 
-对系统的自旋状态的观测用一个厄米的（自伴的）线性算子表示。
+对系统的自旋状态的观测用一个厄米的（Hermitian）线性算子表示。
 
 - 考虑其特征方程 $M \ket{\lambda} = \lambda \ket{\lambda}$，每个特征值 $\lambda$ 都是实的
 - 考虑其特征分解 $M = \sum _ {\lambda \lambda ^ \prime} \ket{\lambda} \bra{\lambda} M \ket{\lambda ^ \prime} \bra{\lambda ^ \prime} = \sum _ {\lambda} \lambda \ket{\lambda} \bra{\lambda} = \sum _{\lambda} \lambda P _ {\lambda}$
@@ -260,4 +260,51 @@ $$
 
 其中，$\Omega = \sqrt{(\omega - \omega _ 0) ^ 2 + \omega _ 1 ^ 2}$；注意这里推导的关键一步是变换 $\exp (i\frac{\theta}{2} \sigma \cdot \hat{n}) = I \cos \frac{\theta}{2} + i (\sigma \cdot \hat{n}) \sin \frac{\theta}{2}$。
 
-## 量子门与量子电路
+## 量子电路
+
+### 量子逻辑门
+
+量子电路由量子逻辑门组成，每个量子门都相当于一个可逆算子。
+
+- 泡利 X 门，$X = \begin{pmatrix} 0 & 1 \cr 1 & 0 \end{pmatrix}$，将 $\ket{0}$ 和 $\ket{1}$ 量子态互相翻转，故又称非门
+- 泡利 Z 门，$Z = \begin{pmatrix} 1 & 0 \cr 0 & -1 \end{pmatrix}$，保持 $\ket{0}$ 不变，并将 $\ket{1}$ 映射成 $-\ket{1}$
+- 哈达玛门，$H = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 & 1 \cr 1 & -1 \end{pmatrix}$，使得 $H \ket{0} = \frac{1}{\sqrt{2}} (\ket{0} + \ket{1})$，$H \ket{1} = \frac{1}{\sqrt{2}} (\ket{0} - \ket{1})$，常用于量子并行化
+- $\pi / 4$ 门，$S = \begin{pmatrix} 1 & 0 \cr 0 & i \end{pmatrix}$
+- $\pi / 8$ 门，$T = \begin{pmatrix} 1 & 0 \cr 0 & e ^ {i\pi / 4} \end{pmatrix}$
+- 受控非门（CNOT），作用于双量子位，当控制量子位为 $\ket{1}$ 时，对受控量子位执行非门，否则不做任何操作
+
+标准的逻辑完备量子门由 H、S、T、CNOT 门组成，能够无限趋近地实现量子计算中的任意酉算子。
+
+### 量子隐形传态
+
+量子隐形传态是一种将量子态传送至任意距离的技术。
+
+- 量子隐形传态不是克隆，在接收端重构出量子态前，发送端的量子态一定已经坍缩，并不违背不可克隆原理
+- 量子隐形传态不能超光速，因为发送端必须使用经典信道传递一定信息给接收端
+
+下面分析一个量子隐形传态的简单模型：假设 Alice 拥有一个量子态 $\ket{\psi} = a \ket{0} + b \ket{1}$，但她并不需要知道这个量子态具体是什么（不需要知道参数 $a$ 和 $b$），她的目标是使这个量子态能够被任意远处的 Bob 重构出来。
+
+<div style="text-align: center;">
+<img src="/assets/images/cs/information/qi/teleportation.jpeg" style="width: 65%;">
+</div>
+
+首先准备贝尔态 $\ket{\Omega} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11})$ 并将这两个纠缠的量子比特分发给 Alice 和 Bob，此时整个系统的量子态可以写作：
+
+$$
+\begin{aligned}
+\ket{\Psi} &= (a\ket{0} + b\ket{1}) \otimes \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) \cr
+&= \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) (a\ket{0} + b\ket{1}) + \frac{1}{\sqrt{2}} (\ket{01} + \ket{10}) (a\ket{1} + b\ket{0}) \cr
+&+ \frac{1}{\sqrt{2}} (\ket{00} - \ket{11}) (a\ket{0} - b\ket{1}) + \frac{1}{\sqrt{2}} (\ket{01} - \ket{10}) (a\ket{1} - b\ket{0})
+\end{aligned}
+$$
+
+随后，Alice 对自己的两个量子比特进行反变换（CNOT、H 门），此时整个系统的量子态为：
+
+$$
+\begin{aligned}
+\ket{\Psi} &= \frac{1}{2} \ket{00} (a\ket{0} + b\ket{1}) + \frac{1}{2} \ket{01} (a\ket{1} + b\ket{0}) + \frac{1}{2} \ket{10} (a\ket{0} - b\ket{1}) + \frac{1}{2} \ket{11} (a\ket{1} - b\ket{0}) \cr
+&= \frac{1}{2} (\ket{00} I + \ket{01} X + \ket{10} Z + \ket{11} XZ) (a\ket{0} + b\ket{1})
+\end{aligned}
+$$
+
+也就是说，Alice 此时可以通过观测自己的两个量子比特，来判断出 Bob 的那个量子比特的状态，从而通过经典信道通知 Bob 执行相应的操作，并最终使 Bob 的那个量子比特演化成 $a\ket{0} + b\ket{0}$。注意到此时由于观测，Alice 处的 $\ket{\psi}$ 已经坍缩，整个过程其实是 $\ket{\psi}$ 在 Alice 处消解，随后又在 Bob 处重构。事实上，量子隐形传态传递的并不是量子态 $\ket{\psi}$ 本身，而是量子态蕴含的信息 $a$ 和 $b$。
