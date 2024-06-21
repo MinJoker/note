@@ -28,7 +28,7 @@ RISC-V 基础指令集中有些细节需要注意：
 
 ## 寄存器组
 
-RISC-V 架构提供 32 个整数寄存器，每个寄存器是 64-bit 的，可以寻址 $2 ^ 64$ 个地址。当实现浮点扩展时，还提供 32 个浮点寄存器，计组课程不涉及。
+RISC-V 架构提供 32 个整数寄存器，每个寄存器是 64-bit 的，可以寻址 $2 ^ {64}$ 个地址。当实现浮点扩展时，还提供 32 个浮点寄存器，计组课程不涉及。
 
 寄存器访问速度快于内存，编译器优先调用寄存器空间。当寄存器空间不足时，通过把部分寄存器数据压入内存来释放寄存器空间。
 
@@ -70,7 +70,7 @@ RISC-V 使用指令 `jal x1, ProcedureAddress` 来调用子程序，使用指令
           sd   x1, 8(sp)        # save the return address
           sd   x10, 0(sp)       # save the argument n
           addi x5, x10, -1      # x5 = n - 1
-          beg  x5, x0, L1       # if n >= 1, go to L1
+          bge  x5, x0, L1       # if n >= 1, go to L1
           addi x10, x0, 1       # return 1
           addi sp, sp, 16       # adjust stack to pop 2 items (no need to ld)
           jalr x0, 0(x1)        # return to caller
