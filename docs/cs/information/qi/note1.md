@@ -192,7 +192,7 @@ $$
 
 密度矩阵是描述量子系统的重要工具，可以用于估计观测结果，与经典系统的概率论相对应。
 
-- 纯态 $\ket{\psi}$ 的密度矩阵为 $\rho \equiv \ket{\psi} \bra{\psi}$，混合态的密度矩阵为 $\rho = \sum _ {i} \ket{\psi _ {i} \bra{\psi _ {i}}}$
+- 纯态 $\ket{\psi}$ 的密度矩阵为 $\rho \equiv \ket{\psi} \bra{\psi}$，混合态的密度矩阵为 $\rho = \sum _ {i} \text{P} _ i \ket{\psi _ {i}} \bra{\psi _ {i}}$
 - 观测 $L$ 作用于量子态的期望可以通过相应的密度矩阵计算得到，$\braket{L} = \text{Tr} (\rho L)$，对于纯态和混合态均适用；其中，$\text{Tr}$ 表示矩阵求迹，定义为 $\text{Tr} (L) = \sum _ {i} \braket{i | L | i}$
 
 密度矩阵具有如下性质：
@@ -224,7 +224,7 @@ $$
 
 此外，为了进一步理解为什么“概率幅不是经典系统的概率论的量子对应，但密度矩阵是”，我们考虑构建一个 50%-50% 的叠加态：
 
-- 考虑纯态 $\ket{\psi} = \frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1}$，其中两个基态的概率幅相等，但 $\ket{\psi}$ 事实上并不是一个 50%-50% 的叠加态，因为 $\ket{0}$ 和 $\ket{1}$ 存在相互干涉。当我们考察密度矩阵 $\rho = \ket{\psi} \bra{\psi} = \frac{1}{2} \ket{0} \bra{0} + \frac{1}{2} \ket{0} \ket{1} + \frac{1}{2} \ket{1} \ket{0} + \frac{1}{2} \ket{1} \ket{1}$ 或者观测期望 $\braket{A} = \frac{1}{2} \braket{0 | A | 0} + \frac{1}{2} \braket{0 | A | 1} + \frac{1}{2} \braket{1 | A | 0} + \frac{1}{2} \braket{1 | A | 1}$ 时，可以明显注意到结果的中间有两个 $\ket{0}$ 和 $\ket{1}$ 的相干项
+- 考虑纯态 $\ket{\psi} = \frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1}$，其中两个基态的概率幅相等，但 $\ket{\psi}$ 事实上并不是一个 50%-50% 的叠加态，因为 $\ket{0}$ 和 $\ket{1}$ 存在相互干涉。当我们考察密度矩阵 $\rho = \ket{\psi} \bra{\psi} = \frac{1}{2} \ket{0} \bra{0} + \frac{1}{2} \ket{0} \bra{1} + \frac{1}{2} \ket{1} \bra{0} + \frac{1}{2} \ket{1} \bra{1}$ 或者观测期望 $\braket{A} = \frac{1}{2} \braket{0 | A | 0} + \frac{1}{2} \braket{0 | A | 1} + \frac{1}{2} \braket{1 | A | 0} + \frac{1}{2} \braket{1 | A | 1}$ 时，可以明显注意到结果的中间有两个 $\ket{0}$ 和 $\ket{1}$ 的相干项
 - 考虑混合态 $\rho = \frac{1}{2} \ket{0} \bra{0} + \frac{1}{2} \ket{1} \bra{1}$，事实上这才是我们想要的 50%-50% 的叠加态，两个基态之间并不相干，因此可以直接使用经典系统概率论的加法原理进行叠加。当我们考虑观测期望 $\braket{A} = \frac{1}{2} \braket{0 | A | 0} + \frac{1}{2} \braket{1 | A | 1}$ 时，也可以明显注意到结果中并不存在相干项
 
 ## 量子系统的含时演化
@@ -234,7 +234,8 @@ $$
 量子系统的含时演化是确定的、可逆的，有别于不确定的、不可逆的观测行为。
 
 - 含时演化可由一个酉矩阵描述：$\ket{\psi (t)} = U(t) \ket{\psi (0)}$，其中 $U(t)$ 为含时演化算子
-- 含时演化遵循薛定谔方程 $i\hbar \frac{\partial}{\partial t} \ket{\psi (t)} = H \ket{\psi (t)}$，其中 $H$ 为哈密顿量
+- 含时演化遵循薛定谔方程： $i\hbar \frac{\partial}{\partial t} \ket{\psi (t)} = H \ket{\psi (t)}$，其中 $H$ 为哈密顿量
+- 密度矩阵 $\rho = \sum _ {i} \text{P} _ i \ket{\psi _ i} \bra{\psi _ i}$ 的含时演化结果可以描述为 $\rho ^ {\prime} = U \rho U ^ {+}$，其中 $\ket{\psi _ i ^ {\prime}} = U \ket{\psi _ i}$
 
 通常而言，我们通过实验测量、理论推导等方式得到量子系统的哈密顿量，从而计算量子系统如何随着时间发生演化。如果哈密顿量与时间无关，则薛定谔方程显然有解 $\ket{\psi (t)} \equiv U(t) \ket{\psi (0)} = e ^ {-iHt / \hbar} \ket{\psi (0)}$。
 
@@ -255,7 +256,7 @@ $$
 取 $\ket{\psi (0)} = \ket{0}$，则在时间 $t$ 时量子态处于 $\ket{1}$ 的概率是：
 
 $$
-|\braket{1 | \psi (t)}| ^ 2 = |\braket{1 | e ^ {-iHt / \hbar} | 0}| ^ 2 = (\frac{\omega _ 1}{\Omega}) ^ 2 \sin ^ 2 \frac{\Omega t}{2}
+|\braket{1 | \psi (t)}| ^ 2 = |\braket{1 | e ^ {-iH ^ {\prime}t / \hbar} | 0}| ^ 2 = (\frac{\omega _ 1}{\Omega}) ^ 2 \sin ^ 2 \frac{\Omega t}{2}
 $$
 
 其中，$\Omega = \sqrt{(\omega - \omega _ 0) ^ 2 + \omega _ 1 ^ 2}$；注意这里推导的关键一步是变换 $\exp (i\frac{\theta}{2} \sigma \cdot \hat{n}) = I \cos \frac{\theta}{2} + i (\sigma \cdot \hat{n}) \sin \frac{\theta}{2}$。
