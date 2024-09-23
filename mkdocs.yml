@@ -164,6 +164,9 @@ nav:
       - courses/co/index.md
       - courses/co/note1.md
       - courses/co/note2.md
+    - 计算理论:
+      - courses/toc/index.md
+      - courses/toc/note1.md
     - 量子信息基础:
       - courses/qi/index.md
       - courses/qi/note1.md
