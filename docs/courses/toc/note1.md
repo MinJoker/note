@@ -83,8 +83,8 @@
     - $s ^ {\prime} = E(s)$，其中 $E(s)=\lbrace p \in K: (s, e) \vdash _ M (p, e) \rbrace$ 表示 $s$ 通过 $e$-transition 可达的状态集合
     - $\forall Q \in K ^ {\prime}$，$\forall a \in \Sigma$，有 $\delta(Q, a) = \bigcup _ {q \in Q} \bigcup _ {p: (q, a, p)\in \Delta} E(p)$
 - 严格证明两者是等价的
-    - 先证明 $\forall p, q \in K$，$\forall w \in \Sigma ^ *$，有 $(p, w) \vdash _ M ^ * (q, e) \Leftrightarrow (E(p), w) \vdash _ {M ^ {\prime}} ^ * (Q, e) \;\text{for some}\; Q \ni q$
-    - 再对 $|w|$ 使用数学归纳法，把 $p$ 固定到初始状态 $s$，从而根据自动机接受字符串的任意性得证
+    - claim：$\forall p, q \in K$，$\forall w \in \Sigma ^ *$，有 $(p, w) \vdash _ M ^ * (q, e) \Leftrightarrow (E(p), w) \vdash _ {M ^ {\prime}} ^ * (Q, e) \;\text{for some}\; Q \ni q$
+    - 先对 $|w|$ 使用数学归纳法证明 claim，再根据自动机接受字符串的定义得证
 - 下图给出一个 NFA 转化为 DFA 的例子，注意到转化而来的 DFA 下半部分是冗余的，可以舍去
 
 <div style="text-align: center;">
@@ -95,7 +95,7 @@
 
 ### 正则语言
 
-- 能够被某一有限自动机接受的语言是正则的（regular）
+- 正则（regular）语言的定义是：能够被某一有限自动机接受的语言
 - 正则语言对于下列运算是封闭的，即正则语言的运算结果仍然是正则语言
     - union：$A \cup B = \lbrace w: w\in A \;\text{or}\; w\in B \rbrace$
     - concatenation：$A \circ B = \lbrace ab: a\in A \;\text{and}\; b\in B \rbrace$
@@ -114,3 +114,67 @@
 <div style="text-align: center;">
 <img src="/assets/images/cs/toc/regular_star.png" style="width: 35%;">
 </div>
+
+### 正则表达式
+
+- 正则表达式由以下规则定义：
+    - $\varnothing$ 是一个正则表达式，其对应的语言是 $L(\varnothing) = \varnothing$
+    - $a\in \Sigma$ 是一个正则表达式，其对应的语言是 $L(a) = \lbrace a \rbrace$
+    - 正则表达式对于下列运算是封闭的，且运算优先级为 $\* > \circ > \cup$
+        - union：$R _ 1 \cup R _ 2$ 是一个正则表达式，$L(R _ 1 \cup R _ 2) = L(R _ 1) \cup L(R _ 2)$
+        - concatenation：$R _ 1 R _ 2$ 是一个正则表达式，$L(R _ 1 R _ 2) = L(R _ 1) \circ L(R _ 2)$
+        - star：$R ^ \*$ 是一个正则表达式，$L(R ^ \*) = (L(R)) ^ \*$
+- 正则表达式能够描述语言，这是很自然的
+    - 例如正则表达式 $\varnothing ^ \*$ 描述语言 $\lbrace e \rbrace$
+    - 例如正则表达式 $a (a\cup b) ^ \* b$ 描述语言 $\lbrace w\in \lbrace a\cup b \rbrace ^ \* : w \;\text{starts with}\; a \;\text{and ends with}\; b \rbrace$
+- 一个语言是正则语言，等价于其能够被某个正则表达式描述
+    - 思路：证明正则表达式与 NFA 的等价性，从而由正则语言的定义得证
+- 证明正则表达式与 NFA 的等价性
+    - 由正则表达式构建 NFA 是简单的
+    - 由 NFA 导出正则表达式的思路是：先简化 NFA，再逐步删除中间状态
+- 考虑简化 NFA 以满足以下两个条件，具体方法为改用新的初始 / 终止状态并通过 e-transition 连接
+    - 初始状态没有入边
+    - 终止状态是唯一的，且没有出边
+
+<div style="text-align: center;">
+<img src="/assets/images/cs/toc/nfa2re_simplify.png" style="width: 40%;">
+</div>
+
+- 考虑删除中间状态，反复使用下图所示方法，不断删除中间状态，直至 NFA 仅由简化的初始状态和终止状态组成，此时转移条件即为导出的正则表达式
+
+<div style="text-align: center;">
+<img src="/assets/images/cs/toc/nfa2re_eliminate.png" style="width: 45%;">
+</div>
+
+- 严格证明由 NFA 导出正则表达式
+    - 有 NFA $M=(K, \Sigma, \Delta, s, F)$，其中：
+        - $K = \lbrace q _ 1, q _ 2, \cdots, q _ n \rbrace$，$s = q _ {n-1}$，$F = \lbrace q _ n \rbrace$
+        - $(p, a, q _ {n-1}) \notin \Delta$，$\forall p\in K$，$\forall a\in \Sigma$
+        - $(q _ n, a, p) \notin \Delta$，$\forall p\in K$，$\forall a\in \Sigma$
+    - 动态规划
+        - 对于 $i, j \in [1,n]$ 以及 $k\in [0,n]$，定义正则表达式 $R _ {ij} ^ k$ 满足 $L _ {ij} ^ k = \lbrace w\in \Sigma ^ \* : w \;\text{drives}\; M \;\text{from}\; q _ i \;\text{to}\; q _ j \;\text{with no intermediate state having index}\; > k \rbrace$
+        - 目标：求解 $R _ {(n-1)n} ^ {n-2}$，注意到预先完成简化的 NFA 的初始 / 终止状态均不会成为中间状态
+        - 已知：可直接写出正则表达式 $R _ {ij} ^ 0$，分 $i=j$ 和 $i\not =j$ 两种情况
+        - 递推：由 $R _ {ij} ^ {k-1}$ 推出 $R _ {ij} ^ k$，分为是否经过 $q _ k$ 两种情况，则 $R _ {ij} ^ k = R _ {ij} ^ {k-1} \cup R _ {ik} ^ {k-1} (R _ {kk} ^ {k-1}) ^ {\*} R _ {kj} ^ {k-1}$
+- 下图给出一个由 NFA 导出正则表达式的例子，注意该 NFA 已经预先完成简化
+
+<div style="text-align: center;">
+<img src="/assets/images/cs/toc/nfa2re.png" style="width: 65%;">
+</div>
+
+### Pumping Theorem
+
+- 设 $L$ 为正则语言，则存在整数 $p \geq 1$（称为 pumping length），使得所有 $|w| \geq p$ 的字符串 $w\in L$ 均可被拆分成三部分 $w=xyz$，且满足：
+    - $\forall i\geq 0$，$xy ^ i z \in L$
+    - $|y| > 0$
+    - $|xy| \leq p$
+- 理解 pumping theorem：
+    - 对于有限正则语言 $L$，直接取 $p = \max _ {w\in L} |w| + 1$ 即可
+    - 对于无限正则语言 $L$，其中充分长的字符串在被相应有限自动机接受的过程中一定存在环
+        - 严格证明，考虑 $L$ 对应的 NFA $M$，取 $p=|K|$，长度不小于 $p$ 的字符串一定会经过重复状态（成环），取这个环作为 $y$ 即可
+    - pumping theorem 是正则语言的必要条件
+- 判定一个语言不是正则的
+    - 思路一：反证法，使用 pumping theorem 找矛盾
+    - 思路二：反证法，使用 $\cup, \circ, \*, \cap, \neg$ 的运算封闭性找矛盾
+    - 例如 $L _ 1 =\lbrace 0 ^ n 1 ^ n : n\geq 0 \rbrace$ 不是正则语言，取 $0 ^ p 1 ^ p \in L$ 即可导出矛盾
+    - 例如 $L _ 2=\lbrace w\in \lbrace 0, 1 \rbrace ^ {\*} : w \;\text{has equal number of}\; 0 \;\text{'s and}\; 1 \;\text{'s} \rbrace$ 不是正则语言，否则根据封闭性 $L _ 1 \cap L _ 2 = L _ 1$ 也是正则语言，导出矛盾
