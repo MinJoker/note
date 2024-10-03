@@ -484,6 +484,20 @@
     </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_8">
+<span class="md-ellipsis">
+      正则表达式
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pumping-theorem">
+<span class="md-ellipsis">
+      Pumping Theorem
+    </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
@@ -645,6 +659,20 @@
     </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_8">
+<span class="md-ellipsis">
+      正则表达式
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pumping-theorem">
+<span class="md-ellipsis">
+      Pumping Theorem
+    </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
@@ -657,7 +685,7 @@
 <article class="md-content__inner md-typeset">
 <h1 id="_1">自动机理论<a class="headerlink" href="#_1" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h1>
 <div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-<p><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"></path></svg></span> 约<span class="heti-skip"><span class="heti-spacing"> </span>1592<span class="heti-spacing"> </span></span>个字 <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"></path></svg></span> 预计阅读时间<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>分钟</p>
+<p><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"></path></svg></span> 约<span class="heti-skip"><span class="heti-spacing"> </span>2591<span class="heti-spacing"> </span></span>个字 <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"></path></svg></span> 预计阅读时间<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>分钟</p>
 </div>
 <h2 id="_2">前言<a class="headerlink" href="#_2" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h2>
 <h3 id="_3">问题<a class="headerlink" href="#_3" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h3>
@@ -768,8 +796,8 @@
 </ul>
 </li>
 <li>严格证明两者是等价的<ul>
-<li>先证明<span><span class="heti-spacing"> </span>$\forall p, q \in K$</span>，$\forall w \in \Sigma ^ *$，有<span><span class="heti-spacing"> </span>$(p, w) \vdash _ M ^ * (q, e) \Leftrightarrow (E(p), w) \vdash _ {M ^ {\prime}} ^ * (Q, e) \;\text{for some}\; Q \ni q$</span></li>
-<li>再对<span class="heti-skip"><span class="heti-spacing"> </span>$|w|$<span class="heti-spacing"> </span></span>使用数学归纳法，把<span class="heti-skip"><span class="heti-spacing"> </span>$p$<span class="heti-spacing"> </span></span>固定到初始状态<span><span class="heti-spacing"> </span>$s$</span>，从而根据自动机接受字符串的任意性得证</li>
+<li>claim：$\forall p, q \in K$，$\forall w \in \Sigma ^ *$，有<span><span class="heti-spacing"> </span>$(p, w) \vdash _ M ^ * (q, e) \Leftrightarrow (E(p), w) \vdash _ {M ^ {\prime}} ^ * (Q, e) \;\text{for some}\; Q \ni q$</span></li>
+<li>先对<span class="heti-skip"><span class="heti-spacing"> </span>$|w|$<span class="heti-spacing"> </span></span>使用数学归纳法证明<span><span class="heti-spacing"> </span>claim</span>，再根据自动机接受字符串的定义得证</li>
 </ul>
 </li>
 <li>下图给出一个<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>转化为<span class="heti-skip"><span class="heti-spacing"> </span>DFA<span class="heti-spacing"> </span></span>的例子，注意到转化而来的<span class="heti-skip"><span class="heti-spacing"> </span>DFA<span class="heti-spacing"> </span></span>下半部分是冗余的，可以舍去</li>
@@ -780,7 +808,7 @@
 <h2 id="_6">正则<a class="headerlink" href="#_6" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h2>
 <h3 id="_7">正则语言<a class="headerlink" href="#_7" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h3>
 <ul>
-<li>能够被某一有限自动机接受的语言是正则的（regular）</li>
+<li>正则（regular）语言的定义是：能够被某一有限自动机接受的语言</li>
 <li>正则语言对于下列运算是封闭的，即正则语言的运算结果仍然是正则语言<ul>
 <li>union：$A \cup B = \lbrace w: w\in A \;\text{or}\; w\in B \rbrace$</li>
 <li>concatenation：$A \circ B = \lbrace ab: a\in A \;\text{and}\; b\in B \rbrace$</li>
@@ -809,6 +837,95 @@
 <div style="text-align: center;">
 <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/toc/regular_star.png"><img src="/assets/images/cs/toc/regular_star.png" style="width: 35%;"/></a>
 </div>
+<h3 id="_8">正则表达式<a class="headerlink" href="#_8" title="anchor link to this section for reference"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>正则表达式由以下规则定义：<ul>
+<li><span>$\varnothing$<span class="heti-spacing"> </span></span>是一个正则表达式，其对应的语言是<span><span class="heti-spacing"> </span>$L(\varnothing) = \varnothing$</span></li>
+<li><span>$a\in \Sigma$<span class="heti-spacing"> </span></span>是一个正则表达式，其对应的语言是<span><span class="heti-spacing"> </span>$L(a) = \lbrace a \rbrace$</span></li>
+<li>正则表达式对于下列运算是封闭的，且运算优先级为<span><span class="heti-spacing"> </span>$* &gt; \circ &gt; \cup$</span><ul>
+<li>union：<span>$R _ 1 \cup R _ 2$<span class="heti-spacing"> </span></span>是一个正则表达式，$L(R _ 1 \cup R _ 2) = L(R _ 1) \cup L(R _ 2)$</li>
+<li>concatenation：<span>$R _ 1 R _ 2$<span class="heti-spacing"> </span></span>是一个正则表达式，$L(R _ 1 R _ 2) = L(R _ 1) \circ L(R _ 2)$</li>
+<li>star：<span>$R ^ *$<span class="heti-spacing"> </span></span>是一个正则表达式，$L(R ^ *) = (L(R)) ^ *$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>正则表达式能够描述语言，这是很自然的<ul>
+<li>例如正则表达式<span class="heti-skip"><span class="heti-spacing"> </span>$\varnothing ^ *$<span class="heti-spacing"> </span></span>描述语言<span><span class="heti-spacing"> </span>$\lbrace e \rbrace$</span></li>
+<li>例如正则表达式<span class="heti-skip"><span class="heti-spacing"> </span>$a (a\cup b) ^ * b$<span class="heti-spacing"> </span></span>描述语言<span><span class="heti-spacing"> </span>$\lbrace w\in \lbrace a\cup b \rbrace ^ * : w \;\text{starts with}\; a \;\text{and ends with}\; b \rbrace$</span></li>
+</ul>
+</li>
+<li>一个语言是正则语言，等价于其能够被某个正则表达式描述<ul>
+<li>思路：证明正则表达式与<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>的等价性，从而由正则语言的定义得证</li>
+</ul>
+</li>
+<li>证明正则表达式与<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>的等价性<ul>
+<li>由正则表达式构建<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>是简单的</li>
+<li>由<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>导出正则表达式的思路是：先简化<span><span class="heti-spacing"> </span>NFA</span>，再逐步删除中间状态</li>
+</ul>
+</li>
+<li>考虑简化<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>以满足以下两个条件，具体方法为改用新的初始<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>终止状态并通过<span class="heti-skip"><span class="heti-spacing"> </span>e-transition<span class="heti-spacing"> </span></span>连接<ul>
+<li>初始状态没有入边</li>
+<li>终止状态是唯一的，且没有出边</li>
+</ul>
+</li>
+</ul>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/toc/nfa2re_simplify.png"><img src="/assets/images/cs/toc/nfa2re_simplify.png" style="width: 40%;"/></a>
+</div>
+<ul>
+<li>考虑删除中间状态，反复使用下图所示方法，不断删除中间状态，直至<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>仅由简化的初始状态和终止状态组成，此时转移条件即为导出的正则表达式</li>
+</ul>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/toc/nfa2re_eliminate.png"><img src="/assets/images/cs/toc/nfa2re_eliminate.png" style="width: 45%;"/></a>
+</div>
+<ul>
+<li>严格证明由<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>导出正则表达式<ul>
+<li>有<span><span class="heti-spacing"> </span>NFA $M=(K, \Sigma, \Delta, s, F)$</span>，其中：<ul>
+<li>$K = \lbrace q _ 1, q _ 2, \cdots, q _ n \rbrace$，$s = q _ {n-1}$，$F = \lbrace q _ n \rbrace$</li>
+<li>$(p, a, q _ {n-1}) \notin \Delta$，$\forall p\in K$，$\forall a\in \Sigma$</li>
+<li>$(q _ n, a, p) \notin \Delta$，$\forall p\in K$，$\forall a\in \Sigma$</li>
+</ul>
+</li>
+<li>动态规划<ul>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span>$i, j \in [1,n]$<span class="heti-spacing"> </span></span>以及<span><span class="heti-spacing"> </span>$k\in [0,n]$</span>，定义正则表达式<span class="heti-skip"><span class="heti-spacing"> </span>$R _ {ij} ^ k$<span class="heti-spacing"> </span></span>满足<span><span class="heti-spacing"> </span>$L _ {ij} ^ k = \lbrace w\in \Sigma ^ * : w \;\text{drives}\; M \;\text{from}\; q _ i \;\text{to}\; q _ j \;\text{with no intermediate state having index}\; &gt; k \rbrace$</span></li>
+<li>目标：求解<span><span class="heti-spacing"> </span>$R _ {(n-1)n} ^ {n-2}$</span>，注意到预先完成简化的<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>的初始<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>终止状态均不会成为中间状态</li>
+<li>已知：可直接写出正则表达式<span><span class="heti-spacing"> </span>$R _ {ij} ^ 0$</span>，分<span class="heti-skip"><span class="heti-spacing"> </span>$i=j$<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>$i\not =j$<span class="heti-spacing"> </span></span>两种情况</li>
+<li>递推：由<span class="heti-skip"><span class="heti-spacing"> </span>$R _ {ij} ^ {k-1}$<span class="heti-spacing"> </span></span>推出<span><span class="heti-spacing"> </span>$R _ {ij} ^ k$</span>，分为是否经过<span class="heti-skip"><span class="heti-spacing"> </span>$q _ k$<span class="heti-spacing"> </span></span>两种情况，则<span><span class="heti-spacing"> </span>$R _ {ij} ^ k = R _ {ij} ^ {k-1} \cup R _ {ik} ^ {k-1} (R _ {kk} ^ {k-1}) ^ {*} R _ {kj} ^ {k-1}$</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>下图给出一个由<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>导出正则表达式的例子，注意该<span class="heti-skip"><span class="heti-spacing"> </span>NFA<span class="heti-spacing"> </span></span>已经预先完成简化</li>
+</ul>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="/assets/images/cs/toc/nfa2re.png"><img src="/assets/images/cs/toc/nfa2re.png" style="width: 65%;"/></a>
+</div>
+<h3 id="pumping-theorem">Pumping Theorem<a class="headerlink" href="#pumping-theorem" title="anchor link to this section for reference">¶</a></h3>
+<ul>
+<li>设<span class="heti-skip"><span class="heti-spacing"> </span>$L$<span class="heti-spacing"> </span></span>为正则语言，则存在整数<span><span class="heti-spacing"> </span>$p \geq 1$</span>（称为<span><span class="heti-spacing"> </span>pumping length</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，使得所有<span class="heti-skip"><span class="heti-spacing"> </span>$|w| \geq p$<span class="heti-spacing"> </span></span>的字符串<span class="heti-skip"><span class="heti-spacing"> </span>$w\in L$<span class="heti-spacing"> </span></span>均可被拆分成三部分<span><span class="heti-spacing"> </span>$w=xyz$</span>，且满足：<ul>
+<li>$\forall i\geq 0$，$xy ^ i z \in L$</li>
+<li>$|y| &gt; 0$</li>
+<li>$|xy| \leq p$</li>
+</ul>
+</li>
+<li>理解<span><span class="heti-spacing"> </span>pumping theorem</span>：<ul>
+<li>对于有限正则语言<span><span class="heti-spacing"> </span>$L$</span>，直接取<span class="heti-skip"><span class="heti-spacing"> </span>$p = \max _ {w\in L} |w| + 1$<span class="heti-spacing"> </span></span>即可</li>
+<li>对于无限正则语言<span><span class="heti-spacing"> </span>$L$</span>，其中充分长的字符串在被相应有限自动机接受的过程中一定存在环<ul>
+<li>严格证明，考虑<span class="heti-skip"><span class="heti-spacing"> </span>$L$<span class="heti-spacing"> </span></span>对应的<span><span class="heti-spacing"> </span>NFA $M$</span>，取<span><span class="heti-spacing"> </span>$p=|K|$</span>，长度不小于<span class="heti-skip"><span class="heti-spacing"> </span>$p$<span class="heti-spacing"> </span></span>的字符串一定会经过重复状态（成环<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，取这个环作为<span class="heti-skip"><span class="heti-spacing"> </span>$y$<span class="heti-spacing"> </span></span>即可</li>
+</ul>
+</li>
+<li><span>pumping theorem<span class="heti-spacing"> </span></span>是正则语言的必要条件</li>
+</ul>
+</li>
+<li>判定一个语言不是正则的<ul>
+<li>思路一：反证法，使用<span class="heti-skip"><span class="heti-spacing"> </span>pumping theorem<span class="heti-spacing"> </span></span>找矛盾</li>
+<li>思路二：反证法，使用<span class="heti-skip"><span class="heti-spacing"> </span>$\cup, \circ, *, \cap, \neg$<span class="heti-spacing"> </span></span>的运算封闭性找矛盾</li>
+<li>例如<span class="heti-skip"><span class="heti-spacing"> </span>$L _ 1 =\lbrace 0 ^ n 1 ^ n : n\geq 0 \rbrace$<span class="heti-spacing"> </span></span>不是正则语言，取<span class="heti-skip"><span class="heti-spacing"> </span>$0 ^ p 1 ^ p \in L$<span class="heti-spacing"> </span></span>即可导出矛盾</li>
+<li>例如<span class="heti-skip"><span class="heti-spacing"> </span>$L _ 2=\lbrace w\in \lbrace 0, 1 \rbrace ^ {*} : w \;\text{has equal number of}\; 0 \;\text{'s and}\; 1 \;\text{'s} \rbrace$<span class="heti-spacing"> </span></span>不是正则语言，否则根据封闭性<span class="heti-skip"><span class="heti-spacing"> </span>$L _ 1 \cap L _ 2 = L _ 1$<span class="heti-spacing"> </span></span>也是正则语言，导出矛盾</li>
+</ul>
+</li>
+</ul>
 <!-- source: https://timvink.github.io/mkdocs-git-revision-date-localized-plugin/howto/override-a-theme/#example-mkdocs-material-theme -->
 <hr/>
 <div class="md-source-file">
@@ -816,7 +933,7 @@
 <!-- mkdocs-git-revision-date-localized-plugin -->
     
     最后更新:
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年9月23日 13:40:18</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年10月3日 15:07:03</span>
 <br/>
         创建日期:
         <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年9月23日 13:40:18</span>
