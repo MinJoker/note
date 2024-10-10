@@ -175,3 +175,21 @@ nav:
       - courses/ps/index.md
       - courses/ps/note1.md
       - courses/ps/note2.md
+
+  - Archive:
+    - archive/index.md
+    - Princeton Algorithms:
+      - archive/princeton/index.md
+      - archive/princeton/note1.md
+      - archive/princeton/note2.md
+    - Stanford CS144:
+      - archive/cs144/index.md
+      - archive/cs144/note1.md
+    - 脑机接口导论:
+      - archive/bciai/index.md
+      - archive/bciai/ch3.md
+      - archive/bciai/ch4.md
+      - archive/bciai/ch5.md
+    - 实用工具:
+      - archive/tools/markdown.md
+      - archive/tools/mac.md

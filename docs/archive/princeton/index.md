@@ -11,5 +11,5 @@
 
 - 课程笔记，知识点较为零散而且不成体系，主要作为个人的课堂随笔
     - [Algorithms I](note1.md)
-    - [Algorithms II](note2.md)
+    - [Algorithms II](note2.md)，笔记部分没有写完，相关 project 也没更新
 - 课程配套的十个 project 的个人实现，以及课程相关的其他资源都汇总在[这个 GitHub 仓库](https://github.com/MinJoker/Princeton-Algorithms)中

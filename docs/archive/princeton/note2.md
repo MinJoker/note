@@ -42,7 +42,7 @@
     - 起源于[柯尼斯堡七桥问题](https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg)
     - 一个连通图是欧拉图（即存在欧拉回路）等价于所有节点的度数都是偶数
         - 证明：对于回路中每个节点，进出节点的边都是成对出现的
-    - DFS 实现，思路参考[这里](../fds/note2.md/#_19)，具体代码见下文
+    - DFS 实现，思路参考[这里](/courses/fds/note2.md/#_19)，具体代码见下文
         - 注意，和经典的 DFS（关注节点访问唯一性）不同，寻找欧拉回路的 DFS 关注的是边的访问唯一性
 - 问题四：寻找哈密顿回路（Hamiltonian cycle），即经过每个节点恰好一次的回路
     - 这是一个经典的 NP 完全问题，相当棘手
@@ -246,7 +246,7 @@
 - 一张有向图存在拓扑序列等价于这张图是无环的
     - 充分性：如果是有环的，则拓扑序列显然不存在
     - 必要性：如果是无环的，即 DAG，则 DFS 算法总能找到一个拓扑序列
-- 拓扑排序算法也可以不用 DFS 实现，这里给出一种非递归的、基于队列的实现，代码思路参考[这里](../fds/note2.md/#_15)，具体实现参考[这里](https://algs4.cs.princeton.edu/42digraph/TopologicalX.java.html)
+- 拓扑排序算法也可以不用 DFS 实现，这里给出一种非递归的、基于队列的实现，代码思路参考[这里](/courses/fds/note2.md/#_15)，具体实现参考[这里](https://algs4.cs.princeton.edu/42digraph/TopologicalX.java.html)
 
 ### 强连通分量
 
