@@ -86,6 +86,7 @@
     - claim：$\forall p, q \in K$，$\forall w \in \Sigma ^ *$，有 $(p, w) \vdash _ M ^ * (q, e) \Leftrightarrow (E(p), w) \vdash _ {M ^ {\prime}} ^ * (Q, e) \;\text{for some}\; Q \ni q$
     - 先对 $|w|$ 使用数学归纳法证明 claim，再根据自动机接受字符串的定义得证
 - 下图给出一个 NFA 转化为 DFA 的例子，注意到转化而来的 DFA 下半部分是冗余的，可以舍去
+    - 手搓策略：先确定 $s ^ {\prime}$，再从 $s ^ {\prime}$ 出发进行确定性转移，逐步扩展出整个 DFA，这样就不会列出冗余
 
 <div style="text-align: center;">
 <img src="/assets/images/cs/toc/nfa2dfa.png" style="width: 60%;">
