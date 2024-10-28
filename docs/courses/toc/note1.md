@@ -163,7 +163,7 @@
 <img src="/assets/images/cs/toc/nfa2re.png" style="width: 65%;">
 </div>
 
-### Pumping Theorem
+### 泵定理
 
 - 设 $L$ 为正则语言，则存在整数 $p \geq 1$（称为 pumping length），使得所有 $|w| \geq p$ 的字符串 $w\in L$ 均可被拆分成三部分 $w=xyz$，且满足：
     - $\forall i\geq 0$，$xy ^ i z \in L$
